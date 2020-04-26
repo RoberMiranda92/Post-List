@@ -1,0 +1,58 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+
+        debug {
+            //LOCAL SERVER
+            buildConfigField "String", "SERVER_BASE_URL", "\"http://10.0.0.2:3000/\""
+        }
+
+        release {
+            minifyEnabled false
+            buildConfigField "String", "SERVER_BASE_URL", "\"http://10.0.0.2:3000/\""
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin_version"
+    //implementation "androidx.work:work-runtime-ktx:$versions.work_version" IMPROVE WITH THIS
+
+    //Retofit
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //Room
+    implementation "androidx.room:room-runtime:$versions.room_version"
+    kapt "androidx.room:room-compiler:$versions.room_version"
+    implementation "androidx.room:room-ktx:$versions.room_version"
+    implementation "androidx.room:room-rxjava2:$versions.room_version"
+
+    testImplementation "junit:junit:$versions.junit_version"
+    testImplementation "io.mockk:mockk:$versions.mockk_version"
+}

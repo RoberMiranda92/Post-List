@@ -1,0 +1,45 @@
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+ext.deps = [:]
+
+def versions = [:]
+versions.kotlin_version = "1.3.72"
+versions.android_gradle_plugin_version = '3.6.2'
+versions.appcompat_version = "1.1.0"
+versions.navigation_version = "2.2.2"
+versions.retrofit_version = "2.8.1"
+versions.room_version = "2.2.5"
+versions.constraint_layout = "1.1.3"
+versions.swipe_refresh_layout = "1.0.0"
+versions.core_ktx_version = "1.2.0"
+versions.coroutines_version = "1.3.5"
+versions.rxandroid_version = "2.1.1"
+versions.rxjava_version = "2.2.0"
+versions.activity_version = "1.1.0"
+versions.fragment_version = "1.2.4"
+versions.junit_version = "4.12"
+versions.material_components_version = "1.1.0"
+versions.koin_version = "2.1.5"
+versions.mockk_version = "1.9.3"
+versions.mockito_version= "3.2.4"
+versions.work_version = "2.3.4"
+versions.arch_core_testing_version = "2.1.0"
+versions.test_junit_version = "1.1.1"
+versions.espresso_version = "3.1.0"
+
+ext.versions = versions
+
+def build_versions = [:]
+build_versions.min_sdk = 21
+build_versions.compile_sdk = 29
+build_versions.target_sdk = 29
+build_versions.build_tools = "29.0.3"
+ext.build_versions = build_versions
+
+def lifecycle = [:]
+versions.lifecycle_version = "2.2.0"
+deps.lifecycle = lifecycle
+
+ext.deps = deps
