@@ -52,6 +52,18 @@ class PostDaoTest {
         testObserver.dispose()
     }
 
+    @Test
+    fun insertAndGetPostByID() {
+        val postList = mutableListOf<PostRoom>(Post1, Post2)
+        postDao.addPostList(postList).test().await()
+
+        val testObserver = postDao.getPostById(Post1.id).test()
+
+        testObserver.awaitCount(1)
+        testObserver.assertResult(Post1)
+        testObserver.dispose()
+    }
+
     companion object {
         val Post1 = PostRoom(
             "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
