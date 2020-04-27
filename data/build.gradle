@@ -10,8 +10,6 @@ android {
     defaultConfig {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -21,12 +19,12 @@ android {
 
         debug {
             //LOCAL SERVER
-            buildConfigField "String", "SERVER_BASE_URL", "\"http://10.0.0.2:3000/\""
+            buildConfigField "String", "SERVER_BASE_URL", "\"http://jsonplaceholder.typicode.com/\""
         }
 
         release {
             minifyEnabled false
-            buildConfigField "String", "SERVER_BASE_URL", "\"http://10.0.0.2:3000/\""
+            buildConfigField "String", "SERVER_BASE_URL", "\"http://jsonplaceholder.typicode.com/\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
