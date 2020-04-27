@@ -4,18 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class PostApi(
 
-	@field:SerializedName("name")
-	val name: String? = null,
+    @field:SerializedName("title")
+    val title: String,
 
-	@field:SerializedName("userId")
-	val userId: Int? = null,
+    @field:SerializedName("userId")
+    val userId: Int,
 
-	@field:SerializedName("id")
-	val id: Int? = null,
+    @field:SerializedName("id")
+    val id: Int,
 
-	@field:SerializedName("body")
-	val body: String? = null,
-
-	@field:SerializedName("email")
-	val email: String? = null
+    @field:SerializedName("body")
+    val body: String
 )

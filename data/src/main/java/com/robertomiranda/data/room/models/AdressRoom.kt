@@ -2,23 +2,26 @@ package com.robertomiranda.data.room.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import com.robertomiranda.data.api.models.GeoApi
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "addresses")
 data class AddressRoom(
 
+    @PrimaryKey(autoGenerate = true)
+    val id :Long,
+
     @ColumnInfo(name = "zipcode")
-    val zipcode: String? = null,
+    val zipCode: String,
 
     @ColumnInfo(name = "geo")
-    val geo: GeoApi? = null,
+    val geoId: Long,
 
     @ColumnInfo(name = "suite")
-    val suite: String? = null,
+    val suite: String,
 
     @ColumnInfo(name = "city")
-    val city: String? = null,
+    val city: String,
 
     @ColumnInfo(name = "street")
-    val street: String? = null
+    val street: String
 )

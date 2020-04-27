@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "posts")
 data class PostRoom(
 
-    @ColumnInfo(name = "name")
-    val name: String? = null,
+    @ColumnInfo(name = "title")
+    val title: String? = null,
 
     @ColumnInfo(name = "userId")
     val userId: Int? = null,

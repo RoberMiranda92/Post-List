@@ -1,9 +1,11 @@
 package com.robertomiranda.data.room.dao
 
+import androidx.room.Dao
 import androidx.room.Query
 import com.robertomiranda.data.room.models.PostRoom
 import io.reactivex.Maybe
 
+@Dao
 interface PostsDao {
 
     @Query("SELECT * FROM posts")

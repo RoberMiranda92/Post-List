@@ -1,6 +1,6 @@
 package com.robertomiranda.data
 
-import com.robertomiranda.data.api.models.PostApi
+import com.robertomiranda.data.models.Post
 import io.reactivex.Maybe
 
 interface IRepository {

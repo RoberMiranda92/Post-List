@@ -1,6 +1,7 @@
 package com.robertomiranda.data
 
 import android.content.Context
+import com.robertomiranda.data.models.Post
 import com.robertomiranda.data.room.DaoFactory
 import com.robertomiranda.data.room.dao.CommentsDao
 import com.robertomiranda.data.room.dao.PostsDao

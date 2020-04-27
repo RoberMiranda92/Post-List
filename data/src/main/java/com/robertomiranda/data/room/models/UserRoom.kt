@@ -1,32 +1,34 @@
 package com.robertomiranda.data.room.models
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
-import com.google.gson.annotations.SerializedName
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
 data class UserRoom(
 
-    @field:SerializedName("website")
-    val website: String? = null,
+    @ColumnInfo(name = "website")
+    val website: String,
 
-    @field:SerializedName("address")
-    val address: AddressRoom? = null,
+    @ColumnInfo(name = "address")
+    val addressId: Long,
 
-    @field:SerializedName("phone")
-    val phone: String? = null,
+    @ColumnInfo(name = "phone")
+    val phone: String,
 
-    @field:SerializedName("name")
-    val name: String? = null,
+    @ColumnInfo(name = "name")
+    val name: String,
 
-    @field:SerializedName("company")
-    val company: CompanyRoom? = null,
+    @ColumnInfo(name = "company")
+    val companyId: Long,
 
-    @field:SerializedName("id")
-    val id: Int? = null,
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    val id: Int,
 
-    @field:SerializedName("email")
-    val email: String? = null,
+    @ColumnInfo(name = "email")
+    val email: String,
 
-    @field:SerializedName("username")
-    val username: String? = null
+    @ColumnInfo(name = "username")
+    val username: String
 )
