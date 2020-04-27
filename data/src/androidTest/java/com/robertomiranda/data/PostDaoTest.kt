@@ -18,7 +18,8 @@ import org.junit.runner.RunWith
 class PostDaoTest {
 
     @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule() //it's just for Junit to execute tasks synchronousl
+    var instantTaskExecutorRule =
+        InstantTaskExecutorRule() //it's just for Junit to execute tasks synchronousl
 
     private lateinit var database: PostListDataBase
     private lateinit var postDao: PostsDao
@@ -51,7 +52,6 @@ class PostDaoTest {
         testObserver.dispose()
     }
 
-
     companion object {
         val Post1 = PostRoom(
             "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
@@ -65,6 +65,5 @@ class PostDaoTest {
             "est rerum tempore vitae\\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\\nqui aperiam non debitis possimus qui neque nisi nulla"
         )
     }
-
 }
 

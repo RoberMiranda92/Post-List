@@ -19,3 +19,7 @@ jobs:
         java-version: 1.8
     - name: Unit tests
       run: bash ./gradlew testDebugUnitTest
+     - name: Data Instrumented tests
+      run: bash ./gradlew data:connectedDebugAndroidTest
+
+      
