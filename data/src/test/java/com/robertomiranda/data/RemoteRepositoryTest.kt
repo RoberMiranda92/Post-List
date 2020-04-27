@@ -45,7 +45,29 @@ class RemoteRepositoryTest : BaseTest() {
         testObserver.dispose()
     }
 
+    @Test
+    fun getPostFromApiOK() {
+        val response =
+            MockWebServerResponseBuilder().httpCode200().bodyFromFile(GET_POST_BY_ID_OK)
+                .build()
+        val post = Gson().fromJson<PostApi>(
+            Utils.getStringFromFile(GET_POST_BY_ID_OK),
+            PostApi::class.java
+        ).toModel()
+
+        server.enqueue(response)
+
+        val testObserver: TestObserver<Post> = remoteRepository.getPostById(post.id)
+            .test()
+
+        testObserver.awaitCount(1)
+        testObserver.assertResult(post)
+        testObserver.dispose()
+    }
+
     companion object {
         const val GET_ALL_POST_OK = "get_all_post_ok.json"
+        const val GET_POST_BY_ID_OK = "get_post_ok.json"
+
     }
 }

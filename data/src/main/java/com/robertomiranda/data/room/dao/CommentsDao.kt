@@ -12,5 +12,5 @@ interface CommentsDao {
     fun getAllComments(): Maybe<List<CommentRoom>>
 
     @Query("SELECT * FROM comments WHERE postId = :id")
-    fun getCommentByPostIId(id: String): Maybe<CommentRoom>
+    fun getCommentByPostId(id: Int): Maybe<List<CommentRoom>>
 }

@@ -8,17 +8,17 @@ import androidx.room.PrimaryKey
 data class CommentRoom(
 
     @ColumnInfo(name = "name")
-    val name: String? = null,
+    val name: String,
 
     @ColumnInfo(name = "postId")
-    val postId: Int? = null,
+    val postId: Int,
 
     @PrimaryKey
-    val id: Int? = null,
+    val id: Int,
 
     @ColumnInfo(name = "body")
-    val body: String? = null,
+    val body: String,
 
     @ColumnInfo(name = "email")
-    val email: String? = null
+    val email: String
 )

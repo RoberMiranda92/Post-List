@@ -8,17 +8,17 @@ import androidx.room.PrimaryKey
 data class PostRoom(
 
     @ColumnInfo(name = "title")
-    val title: String? = null,
+    val title: String,
 
     @ColumnInfo(name = "userId")
-    val userId: Int? = null,
+    val userId: Int,
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int? = null,
+    val id: Int,
 
     @ColumnInfo(name = "body")
-    val body: String? = null,
+    val body: String,
 
     @ColumnInfo(name = "email")
     val email: String? = null

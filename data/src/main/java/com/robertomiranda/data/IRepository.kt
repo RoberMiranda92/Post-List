@@ -1,5 +1,7 @@
 package com.robertomiranda.data
 
+import com.robertomiranda.data.api.models.CommentApi
+import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
 import io.reactivex.Maybe
 
@@ -7,13 +9,13 @@ interface IRepository {
 
     fun getAllPost(): Maybe<List<Post>>
 
-    fun getPostById(id: String)
+    fun getPostById(id: Int): Maybe<Post>
 
-    fun getAllCommentsFromPost(postId: String)
+    fun getAllCommentsFromPost(postId: Int): Maybe<List<Comment>>
 
-    fun getUserById(id: String)
+    fun getUserById(id: Int)
 
-    fun getAllPostFromUser(userID: String)
+    fun getAllPostFromUser(userID: Int)
 
-    fun getAllCommentsFromUser(userID: String)
+    fun getAllCommentsFromUser(userID: Int)
 }

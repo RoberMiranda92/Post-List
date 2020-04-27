@@ -1,6 +1,7 @@
 package com.robertomiranda.data
 
 import android.content.Context
+import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
 import com.robertomiranda.data.room.DaoFactory
 import com.robertomiranda.data.room.dao.CommentsDao
@@ -18,23 +19,23 @@ class LocalRepository(
         return postsDao.getAllPost().map { postList -> postList.map { it.toModel() } }
     }
 
-    override fun getPostById(id: String) {
+    override fun getPostById(id: Int): Maybe<Post> {
+        return postsDao.getPostById(id).map { it.toModel() }
+    }
+
+    override fun getAllCommentsFromPost(postId: Int):Maybe<List<Comment>> {
+        return commentsDao.getCommentByPostId(postId).map { commentList -> commentList.map { it.toModel() } }
+    }
+
+    override fun getUserById(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun getAllCommentsFromPost(postId: String) {
+    override fun getAllPostFromUser(userID: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun getUserById(id: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getAllPostFromUser(userID: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getAllCommentsFromUser(userID: String) {
+    override fun getAllCommentsFromUser(userID: Int) {
         TODO("Not yet implemented")
     }
 

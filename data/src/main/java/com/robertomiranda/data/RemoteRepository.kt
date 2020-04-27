@@ -4,10 +4,9 @@ import com.robertomiranda.data.api.ApiComments
 import com.robertomiranda.data.api.ApiPost
 import com.robertomiranda.data.api.ApiUsers
 import com.robertomiranda.data.api.ServiceFactory
+import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
 import io.reactivex.Maybe
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 
 class RemoteRepository(
     private val apiPost: ApiPost,
@@ -20,23 +19,23 @@ class RemoteRepository(
             .map { postList -> postList.map { it.toModel() } }
     }
 
-    override fun getPostById(id: String) {
+    override fun getPostById(id: Int): Maybe<Post> {
+        return apiPost.getPostById(id).map { it.toModel() }
+    }
+
+    override fun getAllCommentsFromPost(postId: Int): Maybe<List<Comment>> {
         TODO("Not yet implemented")
     }
 
-    override fun getAllCommentsFromPost(postId: String) {
+    override fun getUserById(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun getUserById(id: String) {
+    override fun getAllPostFromUser(userID: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun getAllPostFromUser(userID: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getAllCommentsFromUser(userID: String) {
+    override fun getAllCommentsFromUser(userID: Int) {
         TODO("Not yet implemented")
     }
 

@@ -1,10 +1,6 @@
 package com.robertomiranda.data
 
 import okhttp3.mockwebserver.MockResponse
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
 import java.net.HttpURLConnection
 
 class MockWebServerResponseBuilder {

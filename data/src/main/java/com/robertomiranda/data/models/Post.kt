@@ -1,11 +1,11 @@
 package com.robertomiranda.data.models
 
 data class Post(
-    val title: String? = null,
+    val title: String,
 
-    val userId: Int? = null,
+    val userId: Int,
 
-    val id: Int? = null,
+    val id: Int,
 
-    val body: String? = null
+    val body: String
 )

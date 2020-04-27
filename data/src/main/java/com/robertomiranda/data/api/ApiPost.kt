@@ -11,6 +11,6 @@ interface ApiPost {
     fun getAllPost(): Maybe<List<PostApi>>
 
     @GET("post/{id}")
-    fun getPostById(@Path("id") id: String): Maybe<PostApi>
+    fun getPostById(@Path("id") id: Int): Maybe<PostApi>
 
 }
