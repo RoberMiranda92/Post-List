@@ -1,13 +1,18 @@
 package com.robertomiranda.data
 
-import com.robertomiranda.data.api.models.CommentApi
-import com.robertomiranda.data.api.models.PostApi
-import com.robertomiranda.data.api.models.UserApi
+import com.robertomiranda.data.api.ApiComments
+import com.robertomiranda.data.api.ApiPost
+import com.robertomiranda.data.api.ApiUsers
+import io.reactivex.Maybe
 
-class RemoteRepository(postApi: PostApi, userApi: UserApi, commentApi: CommentApi) : IRepository {
+class RemoteRepository(
+    private val postApi: ApiPost,
+    private val userApi: ApiUsers,
+    private val commentApi: ApiComments
+) : IRepository {
 
-    override fun getAllPost() {
-        TODO("Not yet implemented")
+    override fun getAllPost(): Maybe<List<Post>> {
+        return postApi.getAllPost().map { postList -> postList.map { it.toModel() } }
     }
 
     override fun getPostById(id: String) {

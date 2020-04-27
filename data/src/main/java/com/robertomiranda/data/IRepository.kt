@@ -1,8 +1,11 @@
 package com.robertomiranda.data
 
+import com.robertomiranda.data.api.models.PostApi
+import io.reactivex.Maybe
+
 interface IRepository {
 
-    fun getAllPost()
+    fun getAllPost(): Maybe<List<Post>>
 
     fun getPostById(id: String)
 

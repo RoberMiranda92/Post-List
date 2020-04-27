@@ -5,7 +5,7 @@ import io.reactivex.Maybe
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface CommentsApi {
+interface ApiComments {
 
     @GET("comments")
     fun getAllComments(): Maybe<List<PostApi>>
