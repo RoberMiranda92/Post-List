@@ -1,11 +1,14 @@
 package com.robertomiranda.data.room
 
-import com.robertomiranda.data.BaseDaoTest
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.robertomiranda.data.BaseDataBaseTest
 import com.robertomiranda.data.room.dao.UsersDao
 import com.robertomiranda.data.room.models.UserRoom
 import org.junit.Test
+import org.junit.runner.RunWith
 
-class UsersDaoTest : BaseDaoTest() {
+@RunWith(AndroidJUnit4::class)
+class UsersDaoTest : BaseDataBaseTest() {
 
     private lateinit var usersDao: UsersDao
 

@@ -5,8 +5,10 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.robertomiranda.data.room.models.CommentRoom
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
+
 @Dao
 interface CommentsDao {
 
@@ -17,5 +19,5 @@ interface CommentsDao {
     fun getCommentByPostId(id: Int): Flowable<List<CommentRoom>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addCommentsList(commentsList: MutableList<CommentRoom>): Maybe<List<Long>>
+    fun addCommentsList(commentsList: List<CommentRoom>): Completable
 }

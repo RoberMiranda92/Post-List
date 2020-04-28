@@ -15,7 +15,7 @@ data class UserRoom(
     val website: String,
 
     @ColumnInfo(name = "address")
-    val addressId: Long,
+    val addressId: Int,
 
     @ColumnInfo(name = "phone")
     val phone: String,
@@ -24,8 +24,7 @@ data class UserRoom(
     val name: String,
 
     @ColumnInfo(name = "company")
-    val companyId: Long,
-
+    val companyId: Int,
 
     @ColumnInfo(name = "email")
     val email: String,

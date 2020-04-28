@@ -1,6 +1,7 @@
 package com.robertomiranda.data
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import androidx.paging.toFlowable
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
@@ -12,7 +13,7 @@ import com.robertomiranda.data.room.dao.UsersDao
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 
-class LocalRepository(
+class LocalRepository @VisibleForTesting constructor(
     private val postsDao: PostsDao,
     private val usersDao: UsersDao,
     private val commentsDao: CommentsDao
@@ -20,7 +21,7 @@ class LocalRepository(
 
     override fun getAllPost(): Flowable<List<Post>> {
         return postsDao.getAllPost().toFlowable(PAGINATION_SIZE)
-            .map { postList -> postList.map { it.toModel() } }
+            .map { postList -> postList.filterNotNull().map { it.toModel() } }
     }
 
     override fun getPostById(id: Int): Maybe<Post> {
@@ -30,18 +31,6 @@ class LocalRepository(
     override fun getAllCommentsFromPost(postId: Int): Flowable<List<Comment>> {
         return commentsDao.getCommentByPostId(postId)
             .map { commentList -> commentList.map { it.toModel() } }
-    }
-
-    override fun getUserById(id: Int): Maybe<User> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getAllPostFromUser(userId: Int): Flowable<List<Post>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getAllCommentsFromUser(userID: Int) {
-        TODO("Not yet implemented")
     }
 
     companion object {

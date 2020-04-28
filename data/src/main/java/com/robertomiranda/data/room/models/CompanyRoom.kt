@@ -8,14 +8,14 @@ import androidx.room.PrimaryKey
 data class CompanyRoom(
 
     @PrimaryKey(autoGenerate = true)
-    val id :Long,
+    val id: Int,
 
     @ColumnInfo(name = "bs")
-    val bs: String? = null,
+    val bs: String,
 
     @ColumnInfo(name = "catchPhrase")
-    val catchPhrase: String? = null,
+    val catchPhrase: String,
 
     @ColumnInfo(name = "name")
-    val name: String? = null
+    val name: String
 )

@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-abstract class BaseDaoTest {
+abstract class BaseDataBaseTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -42,7 +42,7 @@ abstract class BaseDaoTest {
     @After
     @Throws(Exception::class)
     fun tearDown() {
-        database.close()
         tearDownChild()
+        database.close()
     }
 }

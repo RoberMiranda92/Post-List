@@ -1,11 +1,14 @@
 package com.robertomiranda.data.room
 
-import com.robertomiranda.data.BaseDaoTest
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.robertomiranda.data.BaseDataBaseTest
 import com.robertomiranda.data.room.dao.CommentsDao
 import com.robertomiranda.data.room.models.CommentRoom
 import org.junit.Test
+import org.junit.runner.RunWith
 
-class CommentsDaoTest : BaseDaoTest() {
+@RunWith(AndroidJUnit4::class)
+class CommentsDaoTest : BaseDataBaseTest() {
 
     private lateinit var commentsDao: CommentsDao
 
@@ -25,7 +28,7 @@ class CommentsDaoTest : BaseDaoTest() {
         val testObserver = commentsDao.getAllComments().test()
 
         testObserver.awaitCount(1)
-        testObserver.assertResult(commentList)
+        testObserver.assertValue(commentList)
         testObserver.dispose()
     }
 
@@ -41,7 +44,7 @@ class CommentsDaoTest : BaseDaoTest() {
         val testObserver = commentsDao.getCommentByPostId(1).test()
 
         testObserver.awaitCount(1)
-        testObserver.assertResult(commentList.subList(0, 2))
+        testObserver.assertValue(commentList.subList(0, 2))
         testObserver.dispose()
     }
 

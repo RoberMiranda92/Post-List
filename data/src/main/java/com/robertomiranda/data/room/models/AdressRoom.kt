@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class AddressRoom(
 
     @PrimaryKey(autoGenerate = true)
-    val id :Long,
+    val id :Int,
 
     @ColumnInfo(name = "zipcode")
     val zipCode: String,

@@ -13,10 +13,4 @@ interface IRepository {
     fun getPostById(id: Int): Maybe<Post>
 
     fun getAllCommentsFromPost(postId: Int): Flowable<List<Comment>>
-
-    fun getUserById(id: Int): Maybe<User>
-
-    fun getAllPostFromUser(userId: Int): Flowable<List<Post>>
-
-    fun getAllCommentsFromUser(userID: Int)
 }

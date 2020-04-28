@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "comments", foreignKeys = [ForeignKey(
-        entity = CommentRoom::class, parentColumns = arrayOf("id"),
+        entity = PostRoom::class, parentColumns = arrayOf("id"),
         childColumns = arrayOf("postId"),
         onDelete = ForeignKey.CASCADE
     )]

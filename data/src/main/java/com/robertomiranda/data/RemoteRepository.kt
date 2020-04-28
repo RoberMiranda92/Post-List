@@ -37,18 +37,6 @@ class RemoteRepository(
         return apiUsers.getAllUsers().map { list -> list.map { it.toModel() } }
     }
 
-    override fun getUserById(id: Int): Maybe<User> {
-        return apiUsers.getUserById(id).map { it.toModel() }
-    }
-
-    override fun getAllPostFromUser(userId: Int): Flowable<List<Post>> {
-        return getAllPost().map { list -> list.filter { it.userId == userId } }
-    }
-
-    override fun getAllCommentsFromUser(userID: Int) {
-        TODO("Not yet implemented")
-    }
-
     companion object {
         fun newInstance(): RemoteRepository {
             return RemoteRepository(
