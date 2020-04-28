@@ -1,48 +1,25 @@
-package com.robertomiranda.data
+package com.robertomiranda.data.room
 
-import android.content.Context
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.robertomiranda.data.room.PostListDataBase
+import com.robertomiranda.data.BaseDaoTest
 import com.robertomiranda.data.room.dao.PostsDao
 import com.robertomiranda.data.room.models.PostRoom
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
-class PostDaoTest {
+class PostDaoTest : BaseDaoTest() {
 
-    @get:Rule
-    var instantTaskExecutorRule =
-        InstantTaskExecutorRule() //it's just for Junit to execute tasks synchronousl
-
-    private lateinit var database: PostListDataBase
     private lateinit var postDao: PostsDao
 
-    @Before
-    fun init() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
-        database = Room.inMemoryDatabaseBuilder(
-            context,
-            PostListDataBase::class.java
-        ).allowMainThreadQueries()
-            .build()
+    override fun setUpChild() {
+        super.setUpChild()
         postDao = database.postDao()
-    }
-
-    @After
-    fun closeDb() {
-        database.close()
     }
 
     @Test
     fun insertAndGetAllPost() {
-        val postList = mutableListOf<PostRoom>(Post1, Post2)
+        val postList = mutableListOf<PostRoom>(
+            Post1,
+            Post2
+        )
         postDao.addPostList(postList).test().await()
 
         val testObserver = postDao.getAllPost().test()
@@ -54,7 +31,10 @@ class PostDaoTest {
 
     @Test
     fun insertAndGetPostByID() {
-        val postList = mutableListOf<PostRoom>(Post1, Post2)
+        val postList = mutableListOf<PostRoom>(
+            Post1,
+            Post2
+        )
         postDao.addPostList(postList).test().await()
 
         val testObserver = postDao.getPostById(Post1.id).test()

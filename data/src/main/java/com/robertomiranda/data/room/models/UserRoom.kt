@@ -7,6 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "users")
 data class UserRoom(
 
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    val id: Int,
+
     @ColumnInfo(name = "website")
     val website: String,
 
@@ -22,9 +26,6 @@ data class UserRoom(
     @ColumnInfo(name = "company")
     val companyId: Long,
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    val id: Int,
 
     @ColumnInfo(name = "email")
     val email: String,

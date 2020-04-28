@@ -1,47 +1,25 @@
-package com.robertomiranda.data
+package com.robertomiranda.data.room
 
-import android.content.Context
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.robertomiranda.data.room.PostListDataBase
+import com.robertomiranda.data.BaseDaoTest
 import com.robertomiranda.data.room.dao.CommentsDao
 import com.robertomiranda.data.room.models.CommentRoom
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
-class CommentsDaoTest {
+class CommentsDaoTest : BaseDaoTest() {
 
-    @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
-
-    private lateinit var database: PostListDataBase
     private lateinit var commentsDao: CommentsDao
 
-    @Before
-    fun init() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
-        database = Room.inMemoryDatabaseBuilder(
-            context,
-            PostListDataBase::class.java
-        ).allowMainThreadQueries()
-            .build()
+    override fun setUpChild() {
         commentsDao = database.commentsDao()
-    }
-
-    @After
-    fun closeDb() {
-        database.close()
     }
 
     @Test
     fun insertAndGetAllPost() {
-        val commentList = mutableListOf<CommentRoom>(Comment1, Comment2, Comment3)
+        val commentList = mutableListOf<CommentRoom>(
+            Comment1,
+            Comment2,
+            Comment3
+        )
         commentsDao.addCommentsList(commentList).test().await()
 
         val testObserver = commentsDao.getAllComments().test()
@@ -53,7 +31,11 @@ class CommentsDaoTest {
 
     @Test
     fun insertAndGetPostByID() {
-        val commentList = mutableListOf<CommentRoom>(Comment1, Comment2, Comment3)
+        val commentList = mutableListOf<CommentRoom>(
+            Comment1,
+            Comment2,
+            Comment3
+        )
         commentsDao.addCommentsList(commentList).test().await()
 
         val testObserver = commentsDao.getCommentByPostId(1).test()
@@ -61,7 +43,6 @@ class CommentsDaoTest {
         testObserver.awaitCount(1)
         testObserver.assertResult(commentList.subList(0, 2))
         testObserver.dispose()
-
     }
 
     companion object {
