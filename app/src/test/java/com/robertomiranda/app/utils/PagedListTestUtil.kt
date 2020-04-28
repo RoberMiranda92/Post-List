@@ -2,6 +2,8 @@ package com.robertomiranda.app.utils
 
 import androidx.paging.*
 
+//Example from https://stackoverflow.com/questions/50435770/how-do-i-create-a-pagedlist-of-an-object-for-tests
+
 fun <T> List<T>.asPagedList(): PagedList<T> = LivePagedListBuilder<Int, T>(
     createMockDataSourceFactory(this),
     Config(
@@ -16,6 +18,9 @@ private fun <T> createMockDataSourceFactory(itemList: List<T>): DataSource.Facto
         override fun create(): DataSource<Int, T> = MockLimitDataSource(itemList)
     }
 
+/**
+ * See [ListDataSource]
+ */
 class MockLimitDataSource<T>(private val itemList: List<T>) : PositionalDataSource<T>() {
 
     override fun isInvalid(): Boolean = false

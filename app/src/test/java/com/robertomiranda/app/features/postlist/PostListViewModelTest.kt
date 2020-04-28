@@ -57,6 +57,7 @@ class PostListViewModelTest : RxBaseTest() {
 
         confirmVerified(screenObserver)
         confirmVerified(listObserver)
+        confirmVerified(localRepository)
 
         viewModel.screenState.removeObserver(screenObserver)
         viewModel.postList.removeObserver(listObserver)
@@ -82,6 +83,7 @@ class PostListViewModelTest : RxBaseTest() {
 
         confirmVerified(screenObserver)
         confirmVerified(listObserver)
+        confirmVerified(localRepository)
 
         viewModel.screenState.removeObserver(screenObserver)
         viewModel.postList.removeObserver(listObserver)
@@ -107,6 +109,7 @@ class PostListViewModelTest : RxBaseTest() {
 
         confirmVerified(screenObserver)
         confirmVerified(listObserver)
+        confirmVerified(localRepository)
 
         viewModel.screenState.removeObserver(screenObserver)
         viewModel.postList.removeObserver(listObserver)
