@@ -57,6 +57,8 @@ dependencies {
     kapt "androidx.room:room-compiler:$versions.room_version"
     implementation "androidx.room:room-ktx:$versions.room_version"
     implementation "androidx.room:room-rxjava2:$versions.room_version"
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paggination_version"
+    implementation "androidx.paging:paging-rxjava2-ktx:$versions.paggination_version"
 
     testImplementation "junit:junit:$versions.junit_version"
     testImplementation "io.mockk:mockk:$versions.mockk_version"

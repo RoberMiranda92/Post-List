@@ -1,5 +1,6 @@
 package com.robertomiranda.data.room.dao
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,7 +12,7 @@ import io.reactivex.Maybe
 interface PostsDao {
 
     @Query("SELECT * FROM posts")
-    fun getAllPost(): Maybe<List<PostRoom>>
+    fun getAllPost(): DataSource.Factory<Int, PostRoom>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addPostList(posts: List<PostRoom>): Maybe<List<Long>>

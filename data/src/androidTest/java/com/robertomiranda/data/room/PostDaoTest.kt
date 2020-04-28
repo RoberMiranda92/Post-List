@@ -1,5 +1,6 @@
 package com.robertomiranda.data.room
 
+import androidx.room.paging.LimitOffsetDataSource
 import com.robertomiranda.data.BaseDaoTest
 import com.robertomiranda.data.room.dao.PostsDao
 import com.robertomiranda.data.room.models.PostRoom
@@ -16,24 +17,29 @@ class PostDaoTest : BaseDaoTest() {
 
     @Test
     fun insertAndGetAllPost() {
-        val postList = mutableListOf<PostRoom>(
-            Post1,
-            Post2
-        )
+
+        val postList: List<PostRoom> = (1..100).map {
+            PostRoom(
+                "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                1, it,
+                "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+            )
+        }
         postDao.addPostList(postList).test().await()
 
-        val testObserver = postDao.getAllPost().test()
+        val factory = postDao.getAllPost()
+        val testObserver = factory.create() as LimitOffsetDataSource
+        assert(testObserver.loadRange(0, 10) == postList.subList(0, 10))
+        assert(testObserver.loadRange(11, 10) == postList.subList(11, 20))
 
-        testObserver.awaitCount(1)
-        testObserver.assertResult(postList)
-        testObserver.dispose()
     }
 
     @Test
     fun insertAndGetPostByID() {
         val postList = mutableListOf<PostRoom>(
             Post1,
-            Post2
+            Post2,
+            Post3
         )
         postDao.addPostList(postList).test().await()
 
@@ -41,6 +47,7 @@ class PostDaoTest : BaseDaoTest() {
 
         testObserver.awaitCount(1)
         testObserver.assertResult(Post1)
+
         testObserver.dispose()
     }
 
@@ -54,6 +61,12 @@ class PostDaoTest : BaseDaoTest() {
         val Post2 = PostRoom(
             "qui est esse",
             1, 2,
+            "est rerum tempore vitae\\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\\nqui aperiam non debitis possimus qui neque nisi nulla"
+        )
+
+        val Post3 = PostRoom(
+            "qui est esse",
+            2, 3,
             "est rerum tempore vitae\\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\\nqui aperiam non debitis possimus qui neque nisi nulla"
         )
     }

@@ -12,5 +12,5 @@ interface ApiUsers {
     fun getAllUsers(): Maybe<List<UserApi>>
 
     @GET("users/{id}")
-    fun getUserById(@Path("id") id: String): Maybe<UserApi>
+    fun getUserById(@Path("id") id: Int): Maybe<UserApi>
 }

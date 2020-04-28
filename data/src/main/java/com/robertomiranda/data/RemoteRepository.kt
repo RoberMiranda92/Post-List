@@ -7,6 +7,7 @@ import com.robertomiranda.data.api.ServiceFactory
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
 import com.robertomiranda.data.models.User
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 
 class RemoteRepository(
@@ -15,7 +16,7 @@ class RemoteRepository(
     private val apiComments: ApiComments
 ) : IRepository {
 
-    override fun getAllPost(): Maybe<List<Post>> {
+    override fun getAllPost(): Flowable<List<Post>> {
         return apiPost.getAllPost()
             .map { postList -> postList.map { it.toModel() } }
     }
@@ -24,30 +25,29 @@ class RemoteRepository(
         return apiPost.getPostById(id).map { it.toModel() }
     }
 
-    override fun getAllCommentsFromPost(postId: Int): Maybe<List<Comment>> {
-        return getAllComments().filter { list -> list.all { it.id == postId } }
+    fun getAllComments(): Flowable<List<Comment>> {
+        return apiComments.getAllComments().map { commentList -> commentList.map { it.toModel() } }
     }
 
-    fun getAllComments(): Maybe<List<Comment>> {
-        return apiComments.getAllComments().map { commentList -> commentList.map { it.toModel() } }
+    override fun getAllCommentsFromPost(postId: Int): Flowable<List<Comment>> {
+        return getAllComments().map { list -> list.filter { it.postId == postId } }
     }
 
     fun geAllUsers(): Maybe<List<User>> {
         return apiUsers.getAllUsers().map { list -> list.map { it.toModel() } }
     }
 
-    override fun getUserById(id: Int) {
-        TODO("Not yet implemented")
+    override fun getUserById(id: Int): Maybe<User> {
+        return apiUsers.getUserById(id).map { it.toModel() }
     }
 
-    override fun getAllPostFromUser(userId: Int): Maybe<List<Post>> {
-        return getAllPost().filter { list -> list.all { it.userId == userId } }
+    override fun getAllPostFromUser(userId: Int): Flowable<List<Post>> {
+        return getAllPost().map { list -> list.filter { it.userId == userId } }
     }
 
     override fun getAllCommentsFromUser(userID: Int) {
         TODO("Not yet implemented")
     }
-
 
     companion object {
         fun newInstance(): RemoteRepository {

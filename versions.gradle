@@ -29,6 +29,7 @@ versions.work_version = "2.3.4"
 versions.arch_core_testing_version = "2.1.0"
 versions.test_junit_version = "1.1.1"
 versions.espresso_version = "3.1.0"
+versions.paggination_version = "2.1.2"
 
 ext.versions = versions
 

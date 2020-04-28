@@ -12,6 +12,7 @@ import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
 import com.robertomiranda.data.models.User
 import io.reactivex.observers.TestObserver
+import io.reactivex.subscribers.TestSubscriber
 import org.junit.Test
 
 class RemoteRepositoryTest : BaseTest() {
@@ -41,7 +42,7 @@ class RemoteRepositoryTest : BaseTest() {
 
         server.enqueue(response)
 
-        val testObserver: TestObserver<List<Post>> = remoteRepository.getAllPost()
+        val testObserver: TestSubscriber<List<Post>> = remoteRepository.getAllPost()
             .test()
 
         testObserver.awaitCount(1)
@@ -81,7 +82,27 @@ class RemoteRepositoryTest : BaseTest() {
 
         server.enqueue(response)
 
-        val testObserver: TestObserver<List<Comment>> = remoteRepository.getAllComments().test()
+        val testObserver: TestSubscriber<List<Comment>> = remoteRepository.getAllComments().test()
+
+        testObserver.awaitCount(1)
+        testObserver.assertResult(commentList)
+        testObserver.dispose()
+    }
+
+    @Test
+    fun getAllCommentsFromPostFromApiOK() {
+        val comment = object : TypeToken<List<CommentApi>>() {}.type
+        val response =
+            MockWebServerResponseBuilder().httpCode200().bodyFromFile(GET_ALL_COMMENTS_OK)
+                .build()
+        val commentList =
+            Gson().fromJson<List<CommentApi>>(Utils.getStringFromFile(GET_ALL_COMMENTS_OK), comment)
+                .map { it.toModel() }.filter { it.postId == 1 }
+
+        server.enqueue(response)
+
+        val testObserver: TestSubscriber<List<Comment>> =
+            remoteRepository.getAllCommentsFromPost(1).test()
 
         testObserver.awaitCount(1)
         testObserver.assertResult(commentList)
@@ -108,10 +129,31 @@ class RemoteRepositoryTest : BaseTest() {
         testObserver.dispose()
     }
 
+    @Test
+    fun getUserFromApiOK() {
+        val response =
+            MockWebServerResponseBuilder().httpCode200().bodyFromFile(GET_USER_BY_ID_OK)
+                .build()
+        val post = Gson().fromJson<UserApi>(
+            Utils.getStringFromFile(GET_USER_BY_ID_OK),
+            UserApi::class.java
+        ).toModel()
+
+        server.enqueue(response)
+
+        val testObserver: TestObserver<User> = remoteRepository.getUserById(1)
+            .test()
+
+        testObserver.awaitCount(1)
+        testObserver.assertResult(post)
+        testObserver.dispose()
+    }
+
     companion object {
         const val GET_ALL_POST_OK = "get_all_post_ok.json"
         const val GET_POST_BY_ID_OK = "get_post_ok.json"
         const val GET_ALL_COMMENTS_OK = "get_all_comments_ok.json"
         const val GET_ALL_USERS_OK = "get_all_users_ok.json"
+        const val GET_USER_BY_ID_OK = "get_user_ok.json"
     }
 }
