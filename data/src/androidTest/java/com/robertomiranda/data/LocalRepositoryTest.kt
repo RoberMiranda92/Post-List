@@ -33,7 +33,7 @@ class LocalRepositoryTest : BaseDataBaseTest() {
 
     private fun insertDataBaseData() {
         val userRange = (1..9)
-        val postRange = (1..9)
+        val postRange = (1..100)
         val comments = (1..100)
 
         users = userRange.map {
@@ -79,7 +79,7 @@ class LocalRepositoryTest : BaseDataBaseTest() {
     }
 
     @Test
-    fun getAllCommentsFromPost() {
+    fun getAllCommentsFromPostOK() {
         val testSubscriber = localRepository.getAllCommentsFromPost(1).test()
 
         val comments = commentList.filter { it.postId == 1 }.map { it.toModel() }
