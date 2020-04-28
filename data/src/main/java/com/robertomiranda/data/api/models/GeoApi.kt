@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class GeoApi(
 
+
     @field:SerializedName("lng")
     val lng: String? = null,
 

@@ -1,16 +1,16 @@
 package com.robertomiranda.data
 
+import com.robertomiranda.data.models.Comment
+import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.User
+import io.reactivex.Flowable
+import io.reactivex.Maybe
+
 interface IRepository {
 
-    fun getAllPost()
+    fun getAllPost(): Flowable<List<Post>>
 
-    fun getPostById(id: String)
+    fun getPostById(id: Int): Maybe<Post>
 
-    fun getAllCommentsFromPost(postId: String)
-
-    fun getUserById(id: String)
-
-    fun getAllPostFromUser(userID: String)
-
-    fun getAllCommentsFromUser(userID: String)
+    fun getAllCommentsFromPost(postId: Int): Flowable<List<Comment>>
 }
