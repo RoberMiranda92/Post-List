@@ -31,7 +31,7 @@ class LocalRepository(
         TODO("Not yet implemented")
     }
 
-    override fun getAllPostFromUser(userID: Int) {
+    override fun getAllPostFromUser(userId: Int): Maybe<List<Post>> {
         TODO("Not yet implemented")
     }
 

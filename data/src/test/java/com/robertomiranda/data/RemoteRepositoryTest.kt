@@ -5,8 +5,12 @@ import com.google.gson.reflect.TypeToken
 import com.robertomiranda.data.api.ApiComments
 import com.robertomiranda.data.api.ApiPost
 import com.robertomiranda.data.api.ApiUsers
+import com.robertomiranda.data.api.models.CommentApi
 import com.robertomiranda.data.api.models.PostApi
+import com.robertomiranda.data.api.models.UserApi
+import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.User
 import io.reactivex.observers.TestObserver
 import org.junit.Test
 
@@ -65,9 +69,49 @@ class RemoteRepositoryTest : BaseTest() {
         testObserver.dispose()
     }
 
+    @Test
+    fun getAllCommentsFromApiOK() {
+        val comment = object : TypeToken<List<CommentApi>>() {}.type
+        val response =
+            MockWebServerResponseBuilder().httpCode200().bodyFromFile(GET_ALL_COMMENTS_OK)
+                .build()
+        val commentList =
+            Gson().fromJson<List<CommentApi>>(Utils.getStringFromFile(GET_ALL_COMMENTS_OK), comment)
+                .map { it.toModel() }
+
+        server.enqueue(response)
+
+        val testObserver: TestObserver<List<Comment>> = remoteRepository.getAllComments().test()
+
+        testObserver.awaitCount(1)
+        testObserver.assertResult(commentList)
+        testObserver.dispose()
+    }
+
+    @Test
+    fun getAllUsersFromApiOK() {
+        val userListType = object : TypeToken<List<UserApi>>() {}.type
+        val response =
+            MockWebServerResponseBuilder().httpCode200().bodyFromFile(GET_ALL_USERS_OK)
+                .build()
+        val userList =
+            Gson().fromJson<List<UserApi>>(Utils.getStringFromFile(GET_ALL_USERS_OK), userListType)
+                .map { it.toModel() }
+
+        server.enqueue(response)
+
+        val testObserver: TestObserver<List<User>> = remoteRepository.geAllUsers()
+            .test()
+
+        testObserver.awaitCount(1)
+        testObserver.assertResult(userList)
+        testObserver.dispose()
+    }
+
     companion object {
         const val GET_ALL_POST_OK = "get_all_post_ok.json"
         const val GET_POST_BY_ID_OK = "get_post_ok.json"
-
+        const val GET_ALL_COMMENTS_OK = "get_all_comments_ok.json"
+        const val GET_ALL_USERS_OK = "get_all_users_ok.json"
     }
 }

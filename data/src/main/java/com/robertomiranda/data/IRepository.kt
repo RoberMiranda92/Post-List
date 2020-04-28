@@ -15,7 +15,7 @@ interface IRepository {
 
     fun getUserById(id: Int)
 
-    fun getAllPostFromUser(userID: Int)
+    fun getAllPostFromUser(userId: Int): Maybe<List<Post>>
 
     fun getAllCommentsFromUser(userID: Int)
 }

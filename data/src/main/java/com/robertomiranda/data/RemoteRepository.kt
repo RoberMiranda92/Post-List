@@ -6,6 +6,7 @@ import com.robertomiranda.data.api.ApiUsers
 import com.robertomiranda.data.api.ServiceFactory
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.User
 import io.reactivex.Maybe
 
 class RemoteRepository(
@@ -24,20 +25,29 @@ class RemoteRepository(
     }
 
     override fun getAllCommentsFromPost(postId: Int): Maybe<List<Comment>> {
-        TODO("Not yet implemented")
+        return getAllComments().filter { list -> list.all { it.id == postId } }
+    }
+
+    fun getAllComments(): Maybe<List<Comment>> {
+        return apiComments.getAllComments().map { commentList -> commentList.map { it.toModel() } }
+    }
+
+    fun geAllUsers(): Maybe<List<User>> {
+        return apiUsers.getAllUsers().map { list -> list.map { it.toModel() } }
     }
 
     override fun getUserById(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun getAllPostFromUser(userID: Int) {
-        TODO("Not yet implemented")
+    override fun getAllPostFromUser(userId: Int): Maybe<List<Post>> {
+        return getAllPost().filter { list -> list.all { it.userId == userId } }
     }
 
     override fun getAllCommentsFromUser(userID: Int) {
         TODO("Not yet implemented")
     }
+
 
     companion object {
         fun newInstance(): RemoteRepository {

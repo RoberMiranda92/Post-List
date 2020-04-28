@@ -5,26 +5,26 @@ import com.google.gson.annotations.SerializedName
 data class UserApi(
 
     @field:SerializedName("website")
-    val website: String? = null,
+    val website: String,
 
     @field:SerializedName("address")
-    val address: AddressApi? = null,
+    val address: AddressApi,
 
     @field:SerializedName("phone")
-    val phone: String? = null,
+    val phone: String,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    val name: String,
 
     @field:SerializedName("company")
-    val company: CompanyApi? = null,
+    val company: CompanyApi,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    val id: Int,
 
     @field:SerializedName("email")
-    val email: String? = null,
+    val email: String,
 
     @field:SerializedName("username")
-    val username: String? = null
+    val username: String
 )
