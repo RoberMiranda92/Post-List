@@ -1,5 +1,6 @@
 package com.robertomiranda.data
 
+import androidx.paging.PagedList
 import com.robertomiranda.data.api.ApiComments
 import com.robertomiranda.data.api.ApiPost
 import com.robertomiranda.data.api.ApiUsers
@@ -19,6 +20,10 @@ class RemoteRepository(
     override fun getAllPost(): Flowable<List<Post>> {
         return apiPost.getAllPost()
             .map { postList -> postList.map { it.toModel() } }
+    }
+
+    override fun getAllPostPaginated(): Flowable<PagedList<Post>> {
+        TODO("Not yet implemented")
     }
 
     override fun getPostById(id: Int): Maybe<Post> {

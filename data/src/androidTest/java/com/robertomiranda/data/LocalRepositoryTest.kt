@@ -47,7 +47,7 @@ class LocalRepositoryTest : BaseDataBaseTest() {
         postList = postRange.map {
             PostRoom(
                 "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-                if(it % 9 == 0) 1 else it % 9 , it,
+                if (it % 9 == 0) 1 else it % 9, it,
                 "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
             )
         }
@@ -55,7 +55,7 @@ class LocalRepositoryTest : BaseDataBaseTest() {
         commentList = comments.map {
             CommentRoom(
                 "quo vero reiciendis velit similique earum",
-                if(it % 9 == 0) 1 else it % 9,
+                if (it % 9 == 0) 1 else it % 9,
                 it,
                 "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et",
                 "Jayne_Kuhic@sydney.com"
@@ -69,10 +69,14 @@ class LocalRepositoryTest : BaseDataBaseTest() {
 
     @Test
     fun getAllPostPaginatedOK() {
-        val testSubscriber = localRepository.getAllPost().test()
+        val testSubscriber = localRepository.getAllPostPaginated().test()
+
+        //PagedList.Config.Builder.DEFAULT_INITIAL_PAGE_MULTIPLIER = 3
+        val subList =
+            postList.subList(0, LocalRepository.PAGINATION_SIZE.times(3)).map { it.toModel() }
 
         testSubscriber.awaitCount(1)
-        testSubscriber.assertValue { list -> list == postList.subList(0, 30).map { it.toModel() } }
+        testSubscriber.assertValue { list -> list.snapshot().filterNotNull() == subList }
             .assertNoErrors()
             .assertNotComplete()
         testSubscriber.dispose()

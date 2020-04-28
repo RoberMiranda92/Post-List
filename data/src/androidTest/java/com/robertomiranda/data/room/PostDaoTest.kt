@@ -30,7 +30,7 @@ class PostDaoTest : BaseDataBaseTest() {
         }
         postDao.addPostList(postList).test().await()
 
-        val factory = postDao.getAllPost()
+        val factory = postDao.getAllPostPaginated()
         val testObserver = factory.create() as LimitOffsetDataSource
         assert(testObserver.loadRange(0, 10) == postList.subList(0, 10))
         assert(testObserver.loadRange(11, 10) == postList.subList(11, 20))
