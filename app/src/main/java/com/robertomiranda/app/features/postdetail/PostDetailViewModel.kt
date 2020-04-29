@@ -2,18 +2,13 @@ package com.robertomiranda.app.features.postdetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.robertomiranda.app.core.BaseViewModel
-import com.robertomiranda.app.core.PostDetailScreenState
-import com.robertomiranda.app.core.addToDisposables
-import com.robertomiranda.app.core.subscribeOnNewObserveOnMain
-import com.robertomiranda.data.LocalRepository
+import com.robertomiranda.app.core.*
+import com.robertomiranda.app.features.postdetail.data.PostDetailProvider
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
-import io.reactivex.Flowable
-import io.reactivex.functions.BiFunction
 
 class PostDetailViewModel(
-    private val localRepository: LocalRepository
+    private val provider: PostDetailProvider
 ) : BaseViewModel<PostDetailScreenState>() {
 
     override fun initState(): PostDetailScreenState = PostDetailScreenState.INITIAL
@@ -27,14 +22,15 @@ class PostDetailViewModel(
     val postCommentsData: LiveData<List<Comment>>
         get() = _postCommentsData
 
-    fun loadPostDetails(postId: Int) {
-        val observer: Flowable<Pair<Post, List<Comment>>> = Flowable.zip(
-            localRepository.getPostById(postId).toFlowable(),
-            localRepository.getAllCommentsFromPost(postId),
-            BiFunction { first, second -> Pair(first, second) }
-        )
+    //Error
+    private val _commentError: MutableLiveData<Event<Boolean>> = MutableLiveData()
+    val commentError: LiveData<Event<Boolean>>
+        get() = _commentError
 
-        observer.subscribeOnNewObserveOnMain()
+    fun loadPostDetails(postId: Int) {
+
+        provider.getPostDetail(postId)
+            .subscribeOnNewObserveOnMain()
             .doOnSubscribe { moveToLoading() }
             .subscribe(
                 { values -> managePostDetail(values.first, values.second) },
@@ -44,7 +40,11 @@ class PostDetailViewModel(
 
     private fun managePostDetail(post: Post, comments: List<Comment>) {
         _postData.setValue(post)
-        _postCommentsData.setValue(comments)
+        if (PostDetailProvider.ERROR_LIST == comments) {
+            _commentError.setValue(Event(true))
+        } else {
+            _postCommentsData.setValue(comments)
+        }
 
         moveToDataLoaded()
     }

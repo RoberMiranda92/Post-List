@@ -5,7 +5,9 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.robertomiranda.app.features.postdetail.PostDetailViewModel
+import com.robertomiranda.app.features.postdetail.data.PostDetailProvider
 import com.robertomiranda.app.features.postlist.PostListViewModel
+import com.robertomiranda.app.features.postlist.data.PostListProvider
 import com.robertomiranda.app.features.welcome.WelcomeViewModel
 import com.robertomiranda.app.features.welcome.data.WelcomeDataProvider
 import com.robertomiranda.data.LocalRepository
@@ -18,10 +20,10 @@ class ViewModelFactory private constructor(private val context: Context) :
         with(modelClass) {
             when {
                 isAssignableFrom(PostListViewModel::class.java) -> {
-                    PostListViewModel(LocalRepository.newInstance(context))
+                    PostListViewModel(PostListProvider.newInstance(context))
                 }
                 isAssignableFrom(PostDetailViewModel::class.java) -> {
-                    PostDetailViewModel(LocalRepository.newInstance(context))
+                    PostDetailViewModel(PostDetailProvider.newInstance(context))
                 }
 
                 isAssignableFrom(WelcomeViewModel::class.java) -> {
