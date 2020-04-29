@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.robertomiranda.app.features.postdetail.PostDetailViewModel
 import com.robertomiranda.app.features.postlist.PostListViewModel
 import com.robertomiranda.app.features.welcome.WelcomeViewModel
+import com.robertomiranda.app.features.welcome.data.WelcomeDataProvider
 import com.robertomiranda.data.LocalRepository
-import com.robertomiranda.data.RemoteRepository
 
 class ViewModelFactory private constructor(private val context: Context) :
     ViewModelProvider.NewInstanceFactory() {
@@ -25,10 +25,7 @@ class ViewModelFactory private constructor(private val context: Context) :
                 }
 
                 isAssignableFrom(WelcomeViewModel::class.java) -> {
-                    WelcomeViewModel(
-                        RemoteRepository.newInstance(),
-                        LocalRepository.newInstance(context)
-                    )
+                    WelcomeViewModel(WelcomeDataProvider.newInstance(context))
                 }
                 else -> error("Unknown ViewModel class: ${modelClass.name}")
             }
