@@ -1,4 +1,4 @@
-package com.robertomiranda.countingthings.ui
+package com.robertomiranda.app.core
 
 import android.content.Context
 import android.util.AttributeSet

@@ -30,6 +30,7 @@ versions.arch_core_testing_version = "2.1.0"
 versions.test_junit_version = "1.1.1"
 versions.espresso_version = "3.1.0"
 versions.paggination_version = "2.1.2"
+versions.jacoco_version= "0.1.4"
 
 ext.versions = versions
 

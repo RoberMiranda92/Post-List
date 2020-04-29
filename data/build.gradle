@@ -20,6 +20,7 @@ android {
         debug {
             //LOCAL SERVER
             buildConfigField "String", "SERVER_BASE_URL", "\"http://jsonplaceholder.typicode.com/\""
+            testCoverageEnabled true
         }
 
         release {
