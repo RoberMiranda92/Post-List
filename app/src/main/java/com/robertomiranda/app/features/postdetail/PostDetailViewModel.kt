@@ -40,7 +40,7 @@ class PostDetailViewModel(
 
     private fun managePostDetail(post: Post, comments: List<Comment>) {
         _postData.setValue(post)
-        if (comments == PostDetailProvider.ERROR_LIST) {
+        if (PostDetailProvider.ERROR_LIST == comments) {
             _commentError.setValue(Event(true))
         } else {
             _postCommentsData.setValue(comments)

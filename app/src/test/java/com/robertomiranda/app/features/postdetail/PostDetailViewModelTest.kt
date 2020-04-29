@@ -39,6 +39,7 @@ class PostDetailViewModelTest : RxBaseTest() {
         )
         val commentErrorDefaultResponse = PostDetailProvider.ERROR_LIST
 
+        val commentsObserver: Observer<List<Comment>> = mockk(relaxed = true)
         val commentErrorObserver: Observer<Event<Boolean>> = mockk(relaxed = true)
         val postDetailObserver: Observer<Post> = mockk(relaxed = true)
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
@@ -53,6 +54,7 @@ class PostDetailViewModelTest : RxBaseTest() {
         viewModel.screenState.observeForever(screenObserver)
         viewModel.postData.observeForever(postDetailObserver)
         viewModel.commentError.observeForever(commentErrorObserver)
+        viewModel.postCommentsData.observeForever(commentsObserver)
 
         viewModel.loadPostDetails(1)
 
@@ -61,6 +63,7 @@ class PostDetailViewModelTest : RxBaseTest() {
         verify(exactly = 1) { provider.getPostDetail(1) }
         verify(exactly = 1) { postDetailObserver.onChanged(post) }
         verify(exactly = 1) { commentErrorObserver.onChanged(Event(true)) }
+        verify(exactly = 0) { commentsObserver.onChanged(commentErrorDefaultResponse) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.DATA_LOADED) }
 
         confirmVerified(screenObserver)
@@ -71,6 +74,8 @@ class PostDetailViewModelTest : RxBaseTest() {
         viewModel.screenState.removeObserver(screenObserver)
         viewModel.postData.removeObserver(postDetailObserver)
         viewModel.commentError.removeObserver(commentErrorObserver)
+        viewModel.postCommentsData.removeObserver(commentsObserver)
+
     }
 
     @Test

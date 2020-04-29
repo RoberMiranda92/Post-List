@@ -12,13 +12,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.robertomiranda.app.core.ViewModelFactory
 import com.robertomiranda.app.features.postlist.PostListViewModel
+import com.robertomiranda.app.features.welcome.WelcomeViewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class FirstFragment : Fragment() {
 
-    private val viewModel: PostListViewModel by viewModels {
+    private val viewModel: WelcomeViewModel by viewModels {
         ViewModelFactory.getInstance(
             requireContext()
         )
@@ -35,18 +36,10 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadPostList()
+        viewModel.loadDataFromRemote()
 
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
-
-        viewModel.postList.observe(viewLifecycleOwner, Observer { list ->
-
-            Log.d("FirstFragment", list.count().toString())
-
-        }
-
-        )
     }
 }
