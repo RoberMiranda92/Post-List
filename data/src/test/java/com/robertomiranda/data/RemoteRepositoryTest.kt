@@ -121,7 +121,7 @@ class RemoteRepositoryTest : BaseTest() {
 
         server.enqueue(response)
 
-        val testObserver: TestObserver<List<User>> = remoteRepository.geAllUsers()
+        val testObserver: TestSubscriber<List<User>> = remoteRepository.geAllUsers()
             .test()
 
         testObserver.awaitCount(1)
@@ -134,6 +134,5 @@ class RemoteRepositoryTest : BaseTest() {
         const val GET_POST_BY_ID_OK = "get_post_ok.json"
         const val GET_ALL_COMMENTS_OK = "get_all_comments_ok.json"
         const val GET_ALL_USERS_OK = "get_all_users_ok.json"
-        const val GET_USER_BY_ID_OK = "get_user_ok.json"
     }
 }
