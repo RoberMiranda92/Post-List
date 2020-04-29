@@ -38,7 +38,7 @@ class RemoteRepository(
         return getAllComments().map { list -> list.filter { it.postId == postId } }
     }
 
-    fun geAllUsers(): Maybe<List<User>> {
+    fun geAllUsers(): Flowable<List<User>> {
         return apiUsers.getAllUsers().map { list -> list.map { it.toModel() } }
     }
 

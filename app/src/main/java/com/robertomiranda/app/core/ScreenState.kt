@@ -18,3 +18,9 @@ enum class PostDetailScreenState : ScreenState {
     override fun getInitialState(): ScreenState = PostListScreenState.INITIAL
 
 }
+
+enum class WelcomeScreenState : ScreenState {
+    INITIAL, LOADING_DATA, DATA_LOADED, ERROR;
+
+    override fun getInitialState(): ScreenState = INITIAL
+}
