@@ -19,7 +19,9 @@ jobs:
 
       - name: Generate coverage report
         uses: reactivecircus/android-emulator-runner@v2
-        run: bash ./gradlew jacocoFullReport
+        with:
+          api-level: 29
+          script: ./gradlew jacocoFullReport
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
