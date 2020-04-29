@@ -47,6 +47,7 @@ android {
             minifyEnabled false
             shrinkResources false
             debuggable true
+            testCoverageEnabled true
         }
 
         release {
@@ -97,6 +98,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_version"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swipe_refresh_layout"
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paggination_version"
 
     // Material components : https://material.io/develop/android/
     implementation "com.google.android.material:material:$versions.material_components_version"

@@ -17,6 +17,10 @@ fun PostRoom.toModel(): Post {
     return Post(title, userId, id, body)
 }
 
+fun Post.toEntity(): PostRoom {
+    return PostRoom(title, userId, id, body)
+}
+
 fun CommentRoom.toModel(): Comment {
     return Comment(name, postId, id, body, email)
 }

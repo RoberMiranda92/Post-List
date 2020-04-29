@@ -7,13 +7,17 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.robertomiranda.data.room.models.PostRoom
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 
 @Dao
 interface PostsDao {
 
     @Query("SELECT * FROM posts")
-    fun getAllPost(): DataSource.Factory<Int, PostRoom>
+    fun getAllPost(): Flowable<List<PostRoom>>
+
+    @Query("SELECT * FROM posts")
+    fun getAllPostPaginated(): DataSource.Factory<Int, PostRoom>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addPostList(posts: List<PostRoom>): Completable

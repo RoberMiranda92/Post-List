@@ -8,10 +8,10 @@ import retrofit2.http.Path
 
 interface ApiPost {
 
-    @GET("post")
+    @GET("posts")
     fun getAllPost(): Flowable<List<PostApi>>
 
-    @GET("post/{id}")
+    @GET("posts/{id}")
     fun getPostById(@Path("id") id: Int): Maybe<PostApi>
 
 }
