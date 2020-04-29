@@ -20,7 +20,7 @@ interface PostsDao {
     fun getAllPostPaginated(): DataSource.Factory<Int, PostRoom>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addPostList(posts: List<PostRoom>): Completable
+    fun addPostList(posts: List<PostRoom>): Maybe<List<Long>>
 
     @Query("SELECT * FROM posts WHERE id = :id")
     fun getPostById(id: Int): Maybe<PostRoom>

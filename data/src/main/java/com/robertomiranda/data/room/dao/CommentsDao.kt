@@ -19,5 +19,5 @@ interface CommentsDao {
     fun getCommentByPostId(id: Int): Flowable<List<CommentRoom>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addCommentsList(commentsList: List<CommentRoom>): Completable
+    fun addCommentsList(commentsList: List<CommentRoom>): Maybe<List<Long>>
 }
