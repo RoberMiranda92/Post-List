@@ -1,16 +1,74 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
 
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="android:background">@color/colorBackground</item>
+        <item name="colorOnBackground">#@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="MainButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="backgroundColor">?attr/colorPrimary</item>
+        <item name="android:minHeight">@dimen/recomended_tappeable_size</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Title" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/text_size_h5</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Title.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Subtitle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/text_size_subtitle_1</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="Body" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/text_size_subtitle_1</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="Body.Secondary">
+        <!--<item name="android:textColor">?attr/colorSecondaryOnSurface</item>-->
+    </style>
+
+    <style name="Body.Big">
+        <item name="android:textSize">@dimen/text_size_h6</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Base.Widget.MaterialComponents.TextInputLayout">
+        <item name="boxBackgroundColor">?attr/colorOnSurface</item>
+        <item name="textInputStyle">@style/Body.Big</item>
+        <!-- <item name="helperTextTextColor">?attr/colorSecondaryOnSurface</item> -->
+    </style>
+
+    <style name="AlertDialogTheme" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="materialAlertDialogTitleTextStyle">@style/CustomMaterialTitleStyle</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/CustomMaterialBodyStyle</item>
+    </style>
+
+    <style name="CustomMaterialTitleStyle" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textAppearance">@style/Title.Bold</item>
+    </style>
+
+    <style name="CustomMaterialBodyStyle" parent="@style/MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textAppearance">@style/Subtitle</item>
+    </style>
+
 </resources>
