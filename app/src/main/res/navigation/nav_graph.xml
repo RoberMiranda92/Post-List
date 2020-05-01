@@ -3,26 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/WelcomeFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.robertomiranda.app.FirstFragment"
+        android:id="@+id/WelcomeFragment"
+        android:name="com.robertomiranda.app.WelcomeFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_welcome">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_WelcomeFragment_to_PostListFragment"
+            app:destination="@id/PostListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.robertomiranda.app.SecondFragment"
+        android:id="@+id/PostListFragment"
+        android:name="com.robertomiranda.app.PostListFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>
