@@ -10,6 +10,7 @@ import com.robertomiranda.data.models.Post
 import com.robertomiranda.data.models.User
 import io.reactivex.Flowable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 class RemoteRepository(
     private val apiPost: ApiPost,
@@ -26,7 +27,7 @@ class RemoteRepository(
         TODO("Not yet implemented")
     }
 
-    override fun getPostById(id: Int): Maybe<Post> {
+    override fun getPostById(id: Int): Single<Post> {
         return apiPost.getPostById(id).map { it.toModel() }
     }
 

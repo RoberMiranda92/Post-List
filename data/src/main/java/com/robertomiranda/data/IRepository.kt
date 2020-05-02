@@ -6,6 +6,7 @@ import com.robertomiranda.data.models.Post
 import com.robertomiranda.data.models.User
 import io.reactivex.Flowable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 interface IRepository {
 
@@ -13,7 +14,7 @@ interface IRepository {
 
     fun getAllPostPaginated(): Flowable<PagedList<Post>>
 
-    fun getPostById(id: Int): Maybe<Post>
+    fun getPostById(id: Int): Single<Post>
 
     fun getAllCommentsFromPost(postId: Int): Flowable<List<Comment>>
 }

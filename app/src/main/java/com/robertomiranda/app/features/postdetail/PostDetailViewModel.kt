@@ -28,7 +28,6 @@ class PostDetailViewModel(
         get() = _commentError
 
     fun loadPostDetails(postId: Int) {
-
         provider.getPostDetail(postId)
             .subscribeOnNewObserveOnMain()
             .doOnSubscribe { moveToLoading() }

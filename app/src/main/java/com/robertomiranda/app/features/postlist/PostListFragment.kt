@@ -1,4 +1,4 @@
-package com.robertomiranda.app
+package com.robertomiranda.app.features.postlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.robertomiranda.app.R
 import com.robertomiranda.app.core.PostListScreenState
 import com.robertomiranda.app.core.ViewModelFactory
 import com.robertomiranda.app.databinding.FragmentPostListBinding
-import com.robertomiranda.app.features.postlist.PostListAdapter
-import com.robertomiranda.app.features.postlist.PostListViewModel
+import com.robertomiranda.app.features.postlist.PostListFragmentDirections.actionPostListFragmentToPostDetailFragment
+import com.robertomiranda.app.features.postlist.adapter.PostListAdapter
+import com.robertomiranda.data.models.Post
 
 class PostListFragment : Fragment() {
 
@@ -20,7 +22,7 @@ class PostListFragment : Fragment() {
     private val viewModel: PostListViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
     }
-    private val adapter: PostListAdapter by lazy { PostListAdapter() }
+    private val adapter: PostListAdapter by lazy { PostListAdapter { post -> managePostClick(post) } }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -83,5 +85,9 @@ class PostListFragment : Fragment() {
             title = getString(R.string.post_list_error_title)
             subTitle = getString(R.string.post_list_error_subtitle)
         }
+    }
+
+    private fun managePostClick(post: Post) {
+        findNavController().navigate(actionPostListFragmentToPostDetailFragment().setPostId(post.id))
     }
 }

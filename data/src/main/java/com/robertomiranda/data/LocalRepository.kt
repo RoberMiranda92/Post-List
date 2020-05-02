@@ -14,6 +14,7 @@ import com.robertomiranda.data.room.models.UserRoom
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 class LocalRepository constructor(
     private val postsDao: PostsDao,
@@ -36,7 +37,7 @@ class LocalRepository constructor(
         return postsDao.addPostList(postList.map { it.toEntity() })
     }
 
-    override fun getPostById(id: Int): Maybe<Post> {
+    override fun getPostById(id: Int): Single<Post> {
         return postsDao.getPostById(id).map { it.toModel() }
     }
 

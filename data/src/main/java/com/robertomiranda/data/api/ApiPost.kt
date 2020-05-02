@@ -2,7 +2,7 @@ package com.robertomiranda.data.api
 
 import com.robertomiranda.data.api.models.PostApi
 import io.reactivex.Flowable
-import io.reactivex.Maybe
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -12,6 +12,6 @@ interface ApiPost {
     fun getAllPost(): Flowable<List<PostApi>>
 
     @GET("posts/{id}")
-    fun getPostById(@Path("id") id: Int): Maybe<PostApi>
+    fun getPostById(@Path("id") id: Int): Single<PostApi>
 
 }

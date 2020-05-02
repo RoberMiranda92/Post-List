@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.robertomiranda.app.WelcomeFragment">
+        tools:context="com.robertomiranda.app.features.welcome.WelcomeFragment">
 
         <ProgressBar
             android:id="@+id/loading"
