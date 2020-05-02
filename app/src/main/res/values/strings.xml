@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">Post List</string>
 
+    <!-- Welcome Screen -->
+    <string name="welcome_error_title">Oops!</string>
+    <string name="welcome_error_subtitle">We couldn\'t download the posts… \n Do you want to continue?</string>
 
     <!-- Post List Screen -->
     <string name="post_list_title">Post List </string>

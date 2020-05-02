@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.robertomiranda.app.WelcomeFragmentDirections.actionWelcomeFragmentToPostListFragment
 import com.robertomiranda.app.core.ViewModelFactory
 import com.robertomiranda.app.core.WelcomeScreenState
+import com.robertomiranda.app.core.showOkDialog
 import com.robertomiranda.app.databinding.FragmentWelcomeBinding
 import com.robertomiranda.app.features.welcome.WelcomeViewModel
 
@@ -47,11 +48,21 @@ class WelcomeFragment : Fragment() {
                 WelcomeScreenState.DATA_LOADED -> {
                     navigateToPostList()
                 }
+                WelcomeScreenState.ERROR -> {
+                    showLoadError()
+                }
                 else -> {
                     /*Do Nothing*/
                 }
             }
         })
+    }
+
+    private fun showLoadError() {
+        context?.showOkDialog(
+            getString(R.string.welcome_error_title),
+            getString(R.string.welcome_error_subtitle)
+        ) { navigateToPostList() }
     }
 
     private fun navigateToPostList() {
