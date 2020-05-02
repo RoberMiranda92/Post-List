@@ -7,6 +7,9 @@ import com.robertomiranda.data.models.Post
 class PostViewHolder(var binding: RowPostBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Post) {
-        binding.title.text = "ID: ${item.id} \n ${item.title}"
+        with(binding) {
+            title.text = item.title
+            body.text = item.body
+        }
     }
 }

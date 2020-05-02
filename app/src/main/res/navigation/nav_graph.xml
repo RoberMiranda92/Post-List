@@ -8,17 +8,18 @@
     <fragment
         android:id="@+id/WelcomeFragment"
         android:name="com.robertomiranda.app.WelcomeFragment"
-        android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_welcome">
 
         <action
             android:id="@+id/action_WelcomeFragment_to_PostListFragment"
-            app:destination="@id/PostListFragment" />
+            app:destination="@id/PostListFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/PostListFragment"
         android:name="com.robertomiranda.app.PostListFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:label="@string/post_list_title"
+        tools:layout="@layout/fragment_post_list">
     </fragment>
 </navigation>

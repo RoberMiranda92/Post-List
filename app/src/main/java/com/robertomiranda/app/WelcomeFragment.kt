@@ -55,6 +55,10 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun navigateToPostList() {
-        findNavController().navigate(actionWelcomeFragmentToPostListFragment())
+        with(findNavController()) {
+            navigate(actionWelcomeFragmentToPostListFragment())
+
+
+        }
     }
 }

@@ -27,6 +27,18 @@ class StatusView(
         0
     )
 
+    var title: CharSequence
+        get() = binding.title.text
+        set(value) {
+            binding.title.text = value
+        }
+
+    var subTitle: CharSequence
+        get() = binding.subtitle.text
+        set(value) {
+            binding.subtitle.text = value
+        }
+
     private val binding: ViewStatusBinding =
         ViewStatusBinding.inflate(LayoutInflater.from(context), this, true)
 
@@ -37,31 +49,23 @@ class StatusView(
             0, 0
         ).apply {
             try {
-                setTitleText(getString(R.styleable.StatusView_view_title_text) ?: "")
-                setSubtitleText(getString(R.styleable.StatusView_view_subtitle_text) ?: "")
+                title = (getString(R.styleable.StatusView_view_title_text) ?: "")
+                subTitle = (getString(R.styleable.StatusView_view_subtitle_text) ?: "")
             } finally {
                 recycle()
             }
         }
     }
 
-    fun setTitleText(title: String) {
-        binding.title.text = title
-    }
-
-    fun setSubtitleText(subtitle: String) {
-        binding.subtitle.text = subtitle
-    }
-
 }
 
 @BindingAdapter("view_title_text")
 fun StatusView.setTitle(title: String) {
-    setTitleText(title)
+    this.title = title
 }
 
 @BindingAdapter("view_subtitle_text")
 fun StatusView.setSubtitle(subtitle: String) {
-    setSubtitleText(subtitle)
+    this.subTitle = subTitle
 
 }
