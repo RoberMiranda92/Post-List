@@ -1,4 +1,4 @@
-package com.robertomiranda.app.features.postlist
+package com.robertomiranda.app.features.postlist.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.robertomiranda.app.databinding.RowPostBinding

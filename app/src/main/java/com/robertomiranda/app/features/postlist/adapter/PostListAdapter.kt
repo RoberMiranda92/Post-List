@@ -1,4 +1,4 @@
-package com.robertomiranda.app.features.postlist
+package com.robertomiranda.app.features.postlist.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.robertomiranda.app.databinding.RowPostBinding
 import com.robertomiranda.data.models.Post
 
-class PostListAdapter : PagedListAdapter<Post, PostViewHolder>(DIFF_CALLBACK) {
+class PostListAdapter(private val onItemClick: (post: Post) -> Unit) :
+    PagedListAdapter<Post, PostViewHolder>(
+        DIFF_CALLBACK
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(
@@ -27,6 +30,7 @@ class PostListAdapter : PagedListAdapter<Post, PostViewHolder>(DIFF_CALLBACK) {
 
         post?.let {
             holder.bind(it)
+            holder.itemView.setOnClickListener { onItemClick.invoke(post)}
         }
     }
 

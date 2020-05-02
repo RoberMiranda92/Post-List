@@ -60,10 +60,10 @@ class PostDetailFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     DESCRIPTION_POSITION -> {
-                        showComments()
+                        showDetail()
                     }
                     COMMENTS_POSITION -> {
-                        showDetail()
+                        showComments()
                     }
                     else -> {
                         error("Invalid view")
@@ -76,11 +76,13 @@ class PostDetailFragment : Fragment() {
     }
 
     private fun showDetail() {
-        binding.list.show()
+        binding.detail.show()
+        binding.list.hide()
     }
 
     private fun showComments() {
-        binding.list.hide()
+        binding.list.show()
+        binding.detail.hide()
     }
 
     private fun configureViews() {
@@ -97,11 +99,14 @@ class PostDetailFragment : Fragment() {
                 PostDetailScreenState.ERROR -> {
                     configureErrorView()
                 }
-
                 else -> {
                     /* Do nothing */
                 }
             }
+        })
+
+        viewModel.postData.observe(viewLifecycleOwner, Observer { post ->
+            binding.detail.post = post
         })
     }
 

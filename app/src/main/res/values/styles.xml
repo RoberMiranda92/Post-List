@@ -23,7 +23,7 @@
 
     <style name="Title" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">?attr/colorOnSurface</item>
-        <item name="android:textSize">@dimen/text_size_h5</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline6</item>
         <item name="android:textAlignment">center</item>
         <item name="android:letterSpacing">0.02</item>
     </style>
@@ -33,28 +33,18 @@
     </style>
 
     <style name="Subtitle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textSize">@dimen/text_size_subtitle_1</item>
-        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
     <style name="Body" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">?attr/colorOnSurface</item>
-        <item name="android:textSize">@dimen/text_size_subtitle_1</item>
-        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
     <style name="Body.Secondary">
-        <!--<item name="android:textColor">?attr/colorSecondaryOnSurface</item>-->
-    </style>
-
-    <style name="Body.Big">
-        <item name="android:textSize">@dimen/text_size_h6</item>
-    </style>
-
-    <style name="TextInputLayout" parent="Base.Widget.MaterialComponents.TextInputLayout">
-        <item name="boxBackgroundColor">?attr/colorOnSurface</item>
-        <item name="textInputStyle">@style/Body.Big</item>
-        <!-- <item name="helperTextTextColor">?attr/colorSecondaryOnSurface</item> -->
+        <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
     <style name="AlertDialogTheme" parent="MaterialAlertDialog.MaterialComponents">
