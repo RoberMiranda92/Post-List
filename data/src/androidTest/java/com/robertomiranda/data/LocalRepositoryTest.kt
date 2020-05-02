@@ -95,6 +95,18 @@ class LocalRepositoryTest : BaseDataBaseTest() {
         testSubscriber.dispose()
     }
 
+
+    @Test
+    fun getUserFromPostOK() {
+        val testSubscriber = localRepository.getUserById(1).test()
+
+        val user = users.first { it.id == 1 }.toModel()
+
+        testSubscriber.awaitCount(1)
+        testSubscriber.assertResult(user)
+        testSubscriber.dispose()
+    }
+
     override fun tearDownChild() {
         database.clearAllTables()
     }

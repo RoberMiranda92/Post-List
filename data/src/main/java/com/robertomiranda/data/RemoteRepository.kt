@@ -39,6 +39,10 @@ class RemoteRepository(
         return getAllComments().map { list -> list.filter { it.postId == postId } }
     }
 
+    override fun getUserById(id: Int): Single<User> {
+        return apiUsers.getUserById(id).map { it.toModel() }
+    }
+
     fun geAllUsers(): Flowable<List<User>> {
         return apiUsers.getAllUsers().map { list -> list.map { it.toModel() } }
     }

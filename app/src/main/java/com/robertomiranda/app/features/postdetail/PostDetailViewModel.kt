@@ -1,9 +1,12 @@
 package com.robertomiranda.app.features.postdetail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.robertomiranda.app.core.*
+import com.robertomiranda.app.features.postdetail.data.model.PostDetail
 import com.robertomiranda.app.features.postdetail.data.PostDetailProvider
+import com.robertomiranda.data.getAvatarUrl
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
 
@@ -32,19 +35,18 @@ class PostDetailViewModel(
             .subscribeOnNewObserveOnMain()
             .doOnSubscribe { moveToLoading() }
             .subscribe(
-                { values -> managePostDetail(values.first, values.second) },
+                { detail -> managePostDetail(detail) },
                 { error -> moveToError() }
             ).addToDisposables(disposables)
     }
 
-    private fun managePostDetail(post: Post, comments: List<Comment>) {
-        _postData.setValue(post)
-        if (PostDetailProvider.ERROR_LIST == comments) {
+    private fun managePostDetail(detail: PostDetail) {
+        _postData.setValue(detail.post)
+        if (PostDetailProvider.ERROR_LIST == detail.comments) {
             _commentError.setValue(Event(true))
         } else {
-            _postCommentsData.setValue(comments)
+            _postCommentsData.setValue(detail.comments)
         }
-
         moveToDataLoaded()
     }
 

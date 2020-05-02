@@ -7,8 +7,11 @@ import com.robertomiranda.app.core.Event
 import com.robertomiranda.app.core.PostDetailScreenState
 import com.robertomiranda.app.core.ScreenState
 import com.robertomiranda.app.features.postdetail.data.PostDetailProvider
+import com.robertomiranda.app.features.postdetail.data.PostDetailProviderTest
+import com.robertomiranda.app.features.postdetail.data.model.PostDetail
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.User
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -32,24 +35,17 @@ class PostDetailViewModelTest : RxBaseTest() {
 
     @Test
     fun loadPostOKButCommentError() {
-        val post = Post(
-            "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-            1, 1,
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-        )
         val commentErrorDefaultResponse = PostDetailProvider.ERROR_LIST
+        val postDetail = PostDetail.PostDetailBuilder().setPost(PostDetailProviderTest.POST)
+            .setComments(commentErrorDefaultResponse)
+            .setUser(PostDetailProviderTest.USER).build()
 
         val commentsObserver: Observer<List<Comment>> = mockk(relaxed = true)
         val commentErrorObserver: Observer<Event<Boolean>> = mockk(relaxed = true)
         val postDetailObserver: Observer<Post> = mockk(relaxed = true)
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
 
-        every { provider.getPostDetail(any()) } returns Flowable.just(
-            Pair(
-                post,
-                commentErrorDefaultResponse
-            )
-        )
+        every { provider.getPostDetail(any()) } returns Flowable.just(postDetail)
 
         viewModel.screenState.observeForever(screenObserver)
         viewModel.postData.observeForever(postDetailObserver)
@@ -61,9 +57,9 @@ class PostDetailViewModelTest : RxBaseTest() {
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.INITIAL) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.LOADING_DATA) }
         verify(exactly = 1) { provider.getPostDetail(1) }
-        verify(exactly = 1) { postDetailObserver.onChanged(post) }
+        verify(exactly = 1) { postDetailObserver.onChanged(postDetail.post) }
         verify(exactly = 1) { commentErrorObserver.onChanged(Event(true)) }
-        verify(exactly = 0) { commentsObserver.onChanged(commentErrorDefaultResponse) }
+        verify(exactly = 0) { commentsObserver.onChanged(postDetail.comments) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.DATA_LOADED) }
 
         confirmVerified(screenObserver)
@@ -75,7 +71,6 @@ class PostDetailViewModelTest : RxBaseTest() {
         viewModel.postData.removeObserver(postDetailObserver)
         viewModel.commentError.removeObserver(commentErrorObserver)
         viewModel.postCommentsData.removeObserver(commentsObserver)
-
     }
 
     @Test
@@ -87,7 +82,6 @@ class PostDetailViewModelTest : RxBaseTest() {
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
 
         every { provider.getPostDetail(any()) } returns Flowable.error(postError)
-
 
         viewModel.screenState.observeForever(screenObserver)
         viewModel.postData.observeForever(postDetailObserver)
@@ -112,26 +106,15 @@ class PostDetailViewModelTest : RxBaseTest() {
 
     @Test
     fun loadPostOK() {
-        val post = Post(
-            "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-            1, 1,
-            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-        )
-        val comments = (0..10).map {
-            Comment(
-                "quo vero reiciendis velit similique earum",
-                1,
-                it,
-                "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et",
-                "Jayne_Kuhic@sydney.com"
-            )
-        }
+        val postDetail = PostDetail.PostDetailBuilder().setPost(PostDetailProviderTest.POST)
+            .setComments(PostDetailProviderTest.COMMENT)
+            .setUser(PostDetailProviderTest.USER).build()
 
         val commentsObserver: Observer<List<Comment>> = mockk(relaxed = true)
         val postDetailObserver: Observer<Post> = mockk(relaxed = true)
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
 
-        every { provider.getPostDetail(any()) } returns Flowable.just(Pair(post, comments))
+        every { provider.getPostDetail(any()) } returns Flowable.just(postDetail)
 
         viewModel.screenState.observeForever(screenObserver)
         viewModel.postData.observeForever(postDetailObserver)
@@ -142,8 +125,8 @@ class PostDetailViewModelTest : RxBaseTest() {
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.INITIAL) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.LOADING_DATA) }
         verify(exactly = 1) { provider.getPostDetail(1) }
-        verify(exactly = 1) { postDetailObserver.onChanged(post) }
-        verify(exactly = 1) { commentsObserver.onChanged(comments) }
+        verify(exactly = 1) { postDetailObserver.onChanged(postDetail.post) }
+        verify(exactly = 1) { commentsObserver.onChanged(postDetail.comments) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.DATA_LOADED) }
 
         confirmVerified(screenObserver)
@@ -154,6 +137,31 @@ class PostDetailViewModelTest : RxBaseTest() {
         viewModel.screenState.removeObserver(screenObserver)
         viewModel.postData.removeObserver(postDetailObserver)
         viewModel.postCommentsData.removeObserver(commentsObserver)
+    }
+
+
+    companion object {
+        val POST: Post = Post(
+            "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+            1, 1,
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+        )
+
+        val USER: User = User(
+            1, "Bret", "hildegard.org", "1-770-736-8031 x56442",
+            "Romaguera-Crona",
+            "Sincere@april.biz"
+        )
+
+        val COMMENT: List<Comment> = (0..10).map {
+            Comment(
+                "quo vero reiciendis velit similique earum",
+                1,
+                it,
+                "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et",
+                "Jayne_Kuhic@sydney.com"
+            )
+        }
     }
 
 

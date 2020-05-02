@@ -10,8 +10,6 @@ import com.robertomiranda.data.room.DaoFactory
 import com.robertomiranda.data.room.dao.CommentsDao
 import com.robertomiranda.data.room.dao.PostsDao
 import com.robertomiranda.data.room.dao.UsersDao
-import com.robertomiranda.data.room.models.UserRoom
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -52,6 +50,10 @@ class LocalRepository constructor(
 
     fun addAllUsers(userList: List<User>): Maybe<List<Long>> {
         return usersDao.addAll(userList.map { it.toEntity() })
+    }
+
+    override fun getUserById(id: Int): Single<User> {
+        return usersDao.getUserById(id).map { it.toModel() }
     }
 
     companion object {
