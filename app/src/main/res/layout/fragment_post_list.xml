@@ -32,7 +32,7 @@
         <com.robertomiranda.app.components.StatusView
             android:id="@+id/status"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:visibility="@{(vm.screenState == PostListScreenState.EMPTY_DATA || vm.screenState == PostListScreenState.ERROR) ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

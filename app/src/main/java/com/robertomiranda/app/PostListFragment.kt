@@ -73,8 +73,8 @@ class PostListFragment : Fragment() {
 
     private fun configureEmptyView() {
         with(binding.status) {
-            title = getString(R.string.post_list_error_title)
-            subTitle = getString(R.string.post_list_error_subtitle)
+            title = getString(R.string.post_list_empty_title)
+            subTitle = getString(R.string.post_list_empty_subtitle)
         }
     }
 
