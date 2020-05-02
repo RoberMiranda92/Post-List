@@ -9,14 +9,23 @@
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin">
 
+        <com.robertomiranda.app.components.UserRowView
+            android:layout_width="match_parent"
+            android:id="@+id/userrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"/>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/title"
             style="@style/Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/userrow" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/body"

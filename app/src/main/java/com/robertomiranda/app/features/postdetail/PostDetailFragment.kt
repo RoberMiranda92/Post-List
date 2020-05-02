@@ -105,8 +105,9 @@ class PostDetailFragment : Fragment() {
             }
         })
 
-        viewModel.postData.observe(viewLifecycleOwner, Observer { post ->
-            binding.detail.post = post
+        viewModel.postData.observe(viewLifecycleOwner, Observer { postDetail ->
+            binding.detail.post = postDetail.post
+            binding.detail.user = postDetail.user
         })
     }
 

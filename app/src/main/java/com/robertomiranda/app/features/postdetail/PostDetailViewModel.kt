@@ -17,8 +17,8 @@ class PostDetailViewModel(
     override fun initState(): PostDetailScreenState = PostDetailScreenState.INITIAL
 
     //Data
-    private val _postData: MutableLiveData<Post> = MutableLiveData()
-    val postData: LiveData<Post>
+    private val _postData: MutableLiveData<PostDetail> = MutableLiveData()
+    val postData: LiveData<PostDetail>
         get() = _postData
 
     private val _postCommentsData: MutableLiveData<List<Comment>> = MutableLiveData()
@@ -41,7 +41,7 @@ class PostDetailViewModel(
     }
 
     private fun managePostDetail(detail: PostDetail) {
-        _postData.setValue(detail.post)
+        _postData.setValue(detail)
         if (PostDetailProvider.ERROR_LIST == detail.comments) {
             _commentError.setValue(Event(true))
         } else {

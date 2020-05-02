@@ -48,12 +48,13 @@ fun User.toEntity(): UserRoom {
     return UserRoom(id, website, 1, phone, name, 1, email, username)
 }
 
-fun User.getAvatarUrl(): String {
-    val builder: Uri.Builder = Uri.Builder()
-    builder.scheme(Constants.AVATAR_SCHEMA)
-        .authority(Constants.AVATAR_URL)
-        .appendPath(Constants.AVATAER_API_PATH)
-        .appendQueryParameter("name", username)
-
-    return builder.build().toString()
+fun User?.getAvatarUrl(): String {
+    return this?.run {
+        val builder: Uri.Builder = Uri.Builder()
+        builder.scheme(Constants.AVATAR_SCHEMA)
+            .authority(Constants.AVATAR_URL)
+            .appendEncodedPath(Constants.AVATAER_API_PATH)
+            .appendQueryParameter("name", username)
+        builder.build().toString()
+    } ?: ""
 }

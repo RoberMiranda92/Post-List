@@ -42,7 +42,7 @@ class PostDetailViewModelTest : RxBaseTest() {
 
         val commentsObserver: Observer<List<Comment>> = mockk(relaxed = true)
         val commentErrorObserver: Observer<Event<Boolean>> = mockk(relaxed = true)
-        val postDetailObserver: Observer<Post> = mockk(relaxed = true)
+        val postDetailObserver: Observer<PostDetail> = mockk(relaxed = true)
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
 
         every { provider.getPostDetail(any()) } returns Flowable.just(postDetail)
@@ -57,7 +57,7 @@ class PostDetailViewModelTest : RxBaseTest() {
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.INITIAL) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.LOADING_DATA) }
         verify(exactly = 1) { provider.getPostDetail(1) }
-        verify(exactly = 1) { postDetailObserver.onChanged(postDetail.post) }
+        verify(exactly = 1) { postDetailObserver.onChanged(postDetail) }
         verify(exactly = 1) { commentErrorObserver.onChanged(Event(true)) }
         verify(exactly = 0) { commentsObserver.onChanged(postDetail.comments) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.DATA_LOADED) }
@@ -78,7 +78,7 @@ class PostDetailViewModelTest : RxBaseTest() {
         val postError = Error("My error")
 
         val commentsObserver: Observer<List<Comment>> = mockk(relaxed = true)
-        val postDetailObserver: Observer<Post> = mockk(relaxed = true)
+        val postDetailObserver: Observer<PostDetail> = mockk(relaxed = true)
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
 
         every { provider.getPostDetail(any()) } returns Flowable.error(postError)
@@ -111,7 +111,7 @@ class PostDetailViewModelTest : RxBaseTest() {
             .setUser(PostDetailProviderTest.USER).build()
 
         val commentsObserver: Observer<List<Comment>> = mockk(relaxed = true)
-        val postDetailObserver: Observer<Post> = mockk(relaxed = true)
+        val postDetailObserver: Observer<PostDetail> = mockk(relaxed = true)
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
 
         every { provider.getPostDetail(any()) } returns Flowable.just(postDetail)
@@ -125,7 +125,7 @@ class PostDetailViewModelTest : RxBaseTest() {
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.INITIAL) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.LOADING_DATA) }
         verify(exactly = 1) { provider.getPostDetail(1) }
-        verify(exactly = 1) { postDetailObserver.onChanged(postDetail.post) }
+        verify(exactly = 1) { postDetailObserver.onChanged(postDetail) }
         verify(exactly = 1) { commentsObserver.onChanged(postDetail.comments) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.DATA_LOADED) }
 
