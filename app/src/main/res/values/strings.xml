@@ -19,6 +19,9 @@
     <string name="post_detail_error_subtitle">Looks like someone unplugged a wire</string>
     <string name="post_detail_tab_details">Details</string>
     <string name="post_detail_tab_comments">Comments</string>
-
+    <plurals name="post_detail_comment_total">
+        <item quantity="one">%d comment</item>
+        <item quantity="other">%d comments</item>
+    </plurals>
 
 </resources>

@@ -13,8 +13,8 @@ import com.google.android.material.tabs.TabLayout
 import com.robertomiranda.app.R
 import com.robertomiranda.app.core.PostDetailScreenState
 import com.robertomiranda.app.core.ViewModelFactory
-import com.robertomiranda.app.core.hide
-import com.robertomiranda.app.core.show
+import com.robertomiranda.app.core.ui.hide
+import com.robertomiranda.app.core.ui.show
 import com.robertomiranda.app.databinding.FragmentPostDetailBinding
 import com.robertomiranda.app.features.postdetail.adapter.PostCommentListAdapter
 

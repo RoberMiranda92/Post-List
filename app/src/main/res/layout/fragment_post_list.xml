@@ -55,7 +55,7 @@
             android:layout_height="0dp"
             android:visibility="@{vm.screenState == PostListScreenState.DATA_LOADED ? View.VISIBLE: View.GONE }"
             app:items="@{vm.postList}"
-            app:layoutManager="com.robertomiranda.app.core.LinearLayoutManagerWrapper"
+            app:layoutManager="com.robertomiranda.app.core.ui.LinearLayoutManagerWrapper"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

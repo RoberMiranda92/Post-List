@@ -4,51 +4,51 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.robertomiranda.app.core.list.BaseListAdapter
+import com.robertomiranda.app.core.list.BaseViewHolder
+import com.robertomiranda.app.core.list.ListItem
 import com.robertomiranda.app.databinding.RowCommentBinding
-import com.robertomiranda.data.models.Comment
+import com.robertomiranda.app.databinding.RowCommentCountBinding
+import com.robertomiranda.app.features.postdetail.adapter.models.CommentBundle
 
-class PostCommentListAdapter : ListAdapter<Comment, PostCommentViewHolder>(
+class PostCommentListAdapter : BaseListAdapter<ListItem>(
     DIFF_CALLBACK
 ) {
+    override fun getViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ListItem> {
+        return when (viewType) {
+            CommentBundle.VIEW_TYPE_HEADER -> {
+                PostCommentHeaderHolder(
+                    RowCommentCountBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            CommentBundle.VIEW_TYPE_COMMENT -> {
+                PostCommentViewHolder(
+                    RowCommentBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            else -> error("Invalid view type")
+        } as BaseViewHolder<ListItem>
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostCommentViewHolder {
-        return PostCommentViewHolder(
-            RowCommentBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-    }
-
-    override fun onBindViewHolder(holder: PostCommentViewHolder, position: Int) {
-        val comment: Comment? = getItem(position)
-
-        comment?.let {
-            holder.bind(it)
-        }
     }
 
     companion object {
         private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<Comment>() {
+            DiffUtil.ItemCallback<ListItem>() {
 
-            override fun areItemsTheSame(oldComment: Comment, newComment: Comment) =
-                oldComment.id == newComment.id
+            override fun areItemsTheSame(oldComment: ListItem, newComment: ListItem) =
+                oldComment.getID() == newComment.getID()
 
-            override fun areContentsTheSame(oldComment: Comment, newComment: Comment) =
+            override fun areContentsTheSame(oldComment: ListItem, newComment: ListItem) =
                 oldComment == newComment
-        }
-
-        @JvmStatic
-        @BindingAdapter("items")
-        fun RecyclerView.bindItems(comments: List<Comment>?) {
-            comments?.run {
-                val adapter = adapter as PostCommentListAdapter
-                adapter.submitList(this)
-            }
         }
     }
 }

@@ -6,6 +6,8 @@ import com.robertomiranda.app.RxBaseTest
 import com.robertomiranda.app.core.Event
 import com.robertomiranda.app.core.PostDetailScreenState
 import com.robertomiranda.app.core.ScreenState
+import com.robertomiranda.app.core.list.ListItem
+import com.robertomiranda.app.features.postdetail.adapter.models.CommentBundle
 import com.robertomiranda.app.features.postdetail.data.PostDetailProvider
 import com.robertomiranda.app.features.postdetail.data.PostDetailProviderTest
 import com.robertomiranda.app.features.postdetail.data.model.PostDetail
@@ -40,7 +42,7 @@ class PostDetailViewModelTest : RxBaseTest() {
             .setComments(commentErrorDefaultResponse)
             .setUser(PostDetailProviderTest.USER).build()
 
-        val commentsObserver: Observer<List<Comment>> = mockk(relaxed = true)
+        val commentsObserver: Observer<List<ListItem>> = mockk(relaxed = true)
         val commentErrorObserver: Observer<Event<Boolean>> = mockk(relaxed = true)
         val postDetailObserver: Observer<PostDetail> = mockk(relaxed = true)
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
@@ -59,7 +61,7 @@ class PostDetailViewModelTest : RxBaseTest() {
         verify(exactly = 1) { provider.getPostDetail(1) }
         verify(exactly = 1) { postDetailObserver.onChanged(postDetail) }
         verify(exactly = 1) { commentErrorObserver.onChanged(Event(true)) }
-        verify(exactly = 0) { commentsObserver.onChanged(postDetail.comments) }
+        verify(exactly = 0) { commentsObserver.onChanged(CommentBundle(postDetail.comments!!).all) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.DATA_LOADED) }
 
         confirmVerified(screenObserver)
@@ -77,7 +79,7 @@ class PostDetailViewModelTest : RxBaseTest() {
     fun loadPostPostIdKO() {
         val postError = Error("My error")
 
-        val commentsObserver: Observer<List<Comment>> = mockk(relaxed = true)
+        val commentsObserver: Observer<List<ListItem>> = mockk(relaxed = true)
         val postDetailObserver: Observer<PostDetail> = mockk(relaxed = true)
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
 
@@ -110,7 +112,7 @@ class PostDetailViewModelTest : RxBaseTest() {
             .setComments(PostDetailProviderTest.COMMENT)
             .setUser(PostDetailProviderTest.USER).build()
 
-        val commentsObserver: Observer<List<Comment>> = mockk(relaxed = true)
+        val commentsObserver: Observer<List<ListItem>> = mockk(relaxed = true)
         val postDetailObserver: Observer<PostDetail> = mockk(relaxed = true)
         val screenObserver: Observer<ScreenState> = mockk(relaxed = true)
 
@@ -126,7 +128,7 @@ class PostDetailViewModelTest : RxBaseTest() {
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.LOADING_DATA) }
         verify(exactly = 1) { provider.getPostDetail(1) }
         verify(exactly = 1) { postDetailObserver.onChanged(postDetail) }
-        verify(exactly = 1) { commentsObserver.onChanged(postDetail.comments) }
+        verify(exactly = 1) { commentsObserver.onChanged(CommentBundle(postDetail.comments!!).all) }
         verify(exactly = 1) { screenObserver.onChanged(PostDetailScreenState.DATA_LOADED) }
 
         confirmVerified(screenObserver)

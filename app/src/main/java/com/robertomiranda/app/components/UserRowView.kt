@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.robertomiranda.app.core.loadImageFromUrl
+import com.robertomiranda.app.core.ui.loadImageFromUrl
 import com.robertomiranda.app.databinding.RowUserBinding
 import com.robertomiranda.data.getAvatarUrl
 import com.robertomiranda.data.models.User

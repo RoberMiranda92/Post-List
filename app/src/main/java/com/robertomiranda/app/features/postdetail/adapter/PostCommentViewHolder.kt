@@ -1,17 +1,17 @@
 package com.robertomiranda.app.features.postdetail.adapter
 
-import androidx.recyclerview.widget.RecyclerView
+import com.robertomiranda.app.core.list.BaseViewHolder
 import com.robertomiranda.app.databinding.RowCommentBinding
-import com.robertomiranda.app.databinding.RowPostBinding
-import com.robertomiranda.data.models.Comment
-import com.robertomiranda.data.models.Post
+import com.robertomiranda.app.features.postdetail.adapter.models.CommentListItem
 
-class PostCommentViewHolder(var binding: RowCommentBinding) : RecyclerView.ViewHolder(binding.root) {
+class PostCommentViewHolder(var binding: RowCommentBinding) :
+    BaseViewHolder<CommentListItem>(binding.root) {
 
-    fun bind(item: Comment) {
+    override fun bind(item: CommentListItem) {
         with(binding) {
-            title.text = item.name
-            body.text = item.body
+            email.text = item.comment.email
+            title.text = item.comment.name
+            body.text = item.comment.body
         }
     }
 }

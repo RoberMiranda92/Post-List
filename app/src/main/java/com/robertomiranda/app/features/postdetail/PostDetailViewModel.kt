@@ -3,7 +3,11 @@ package com.robertomiranda.app.features.postdetail
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.robertomiranda.app.core.*
+import com.robertomiranda.app.core.list.ListItem
+import com.robertomiranda.app.features.postdetail.adapter.models.CommentBundle
+import com.robertomiranda.app.features.postdetail.adapter.models.CommentListItem
 import com.robertomiranda.app.features.postdetail.data.model.PostDetail
 import com.robertomiranda.app.features.postdetail.data.PostDetailProvider
 import com.robertomiranda.data.getAvatarUrl
@@ -22,8 +26,8 @@ class PostDetailViewModel(
         get() = _postData
 
     private val _postCommentsData: MutableLiveData<List<Comment>> = MutableLiveData()
-    val postCommentsData: LiveData<List<Comment>>
-        get() = _postCommentsData
+    val postCommentsData: LiveData<MutableList<ListItem>>
+        get() = _postCommentsData.map { CommentBundle(it) }.map { it.all }
 
     //Error
     private val _commentError: MutableLiveData<Event<Boolean>> = MutableLiveData()

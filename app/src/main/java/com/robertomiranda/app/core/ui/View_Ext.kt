@@ -1,4 +1,4 @@
-package com.robertomiranda.app.core
+package com.robertomiranda.app.core.ui
 
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
