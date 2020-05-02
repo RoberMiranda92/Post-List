@@ -1,15 +1,15 @@
-package com.robertomiranda.app.features.postdetail.adapter
+package com.robertomiranda.app.features.postdetail.adapter.models
 
 import com.robertomiranda.app.core.list.ListItem
 import com.robertomiranda.data.models.Comment
 
-class CommentBundle(dataSet: MutableList<Comment>) {
+class CommentBundle(dataSet: List<Comment>) {
 
-    private val all: MutableList<ListItem> = mutableListOf()
+    val all: MutableList<ListItem> = mutableListOf()
 
     init {
         if (dataSet.isNotEmpty()) {
-            all.add(CommentHeaderItem())
+            all.add(CommentHeaderItem(dataSet.size))
             all.addAll(dataSet.map { CommentListItem(it) })
         }
     }
