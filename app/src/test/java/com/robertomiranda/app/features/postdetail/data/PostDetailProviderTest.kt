@@ -1,15 +1,17 @@
 package com.robertomiranda.app.features.postdetail.data
 
 import com.robertomiranda.app.features.postdetail.data.model.PostDetail
-import com.robertomiranda.data.repository.local.LocalRepository
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.Resource
 import com.robertomiranda.data.models.User
+import com.robertomiranda.data.repository.local.LocalRepository
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -113,6 +115,40 @@ class PostDetailProviderTest {
         confirmVerified(localRepository)
     }
 
+    @Test
+    fun loadResourceOK() {
+        val resource = RESOURCE
+        every { localRepository.getResourceByKey(any()) } returns Maybe.just(RESOURCE)
+
+        val testObserver = provider.getResourceFromEmail("email@domain.info").test()
+
+        testObserver.awaitCount(1)
+            .assertResult(resource)
+        testObserver.dispose()
+
+        verify(exactly = 1) { localRepository.getResourceByKey(".info") }
+
+        confirmVerified(localRepository)
+    }
+
+    @Test
+    fun loadResourceKO() {
+        val resourceError = Error("My error")
+
+        every { localRepository.getResourceByKey(any()) } returns Maybe.error(resourceError)
+
+        val testObserver = provider.getResourceFromEmail("email@domain.info").test()
+
+        testObserver
+            .assertSubscribed()
+            .assertError(resourceError)
+        testObserver.dispose()
+
+        verify(exactly = 1) { localRepository.getResourceByKey(".info") }
+
+        confirmVerified(localRepository)
+    }
+
     companion object {
         val POST: Post = Post(
             "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
@@ -135,5 +171,7 @@ class PostDetailProviderTest {
                 "Jayne_Kuhic@sydney.com"
             )
         }
+
+        val RESOURCE = Resource(".info", "ℹ️")
     }
 }

@@ -70,8 +70,8 @@ class LocalRepository constructor(
         return resourceDao.addAll(resourceList.map { it.toEntity() })
     }
 
-    override fun getResourceFromEmail(email: String): Maybe<Resource> {
-        return resourceDao.getResourceFromEmail(email).map { it.toModel() }
+    override fun getResourceByKey(key: String): Maybe<Resource> {
+        return resourceDao.getResourceByKey(key).map { it.toModel() }
     }
 
     companion object {

@@ -21,5 +21,5 @@ interface ILocalRepository : IRepository {
 
     fun addAllResources(resourceList:List<Resource>): Maybe<List<Long>>
 
-    fun getResourceFromEmail(email:String): Maybe<Resource>
+    fun getResourceByKey(key:String): Maybe<Resource>
 }

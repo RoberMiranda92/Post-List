@@ -13,12 +13,14 @@ import com.robertomiranda.app.features.postdetail.data.PostDetailProviderTest
 import com.robertomiranda.app.features.postdetail.data.model.PostDetail
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.Resource
 import com.robertomiranda.data.models.User
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 import org.junit.Rule
 import org.junit.Test
 
@@ -141,6 +143,39 @@ class PostDetailViewModelTest : RxBaseTest() {
         viewModel.postCommentsData.removeObserver(commentsObserver)
     }
 
+    @Test
+    fun loadResourceOK() {
+        val resource = RESOURCE
+
+        every { provider.getResourceFromEmail(any()) } returns Maybe.just(resource)
+
+        val testObserver = viewModel.loadCommentResource(resource.key).test().await()
+
+        verify(exactly = 1) { provider.getResourceFromEmail(resource.key) }
+
+        testObserver.assertResult(resource)
+        testObserver.dispose()
+
+        confirmVerified(provider)
+    }
+
+    @Test
+    fun loadResourceKO() {
+        val resourceError = Error("My error")
+
+        every { provider.getResourceFromEmail(any()) } returns Maybe.error(resourceError)
+
+        val testObserver = viewModel.loadCommentResource("key").test().await()
+
+        verify(exactly = 1) { provider.getResourceFromEmail("key") }
+
+        testObserver
+            .assertSubscribed()
+            .assertError(resourceError)
+        testObserver.dispose()
+
+        confirmVerified(provider)
+    }
 
     companion object {
         val POST: Post = Post(
@@ -164,6 +199,9 @@ class PostDetailViewModelTest : RxBaseTest() {
                 "Jayne_Kuhic@sydney.com"
             )
         }
+
+        val RESOURCE = Resource(".info", "ℹ️")
+
     }
 
 

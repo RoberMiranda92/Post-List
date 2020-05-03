@@ -137,6 +137,18 @@ class LocalRepositoryTest : BaseDataBaseTest() {
         testSubscriber.dispose()
     }
 
+    @Test
+    fun getResourceByEmail() {
+        val key = resources.first().key
+        val testSubscriber = localRepository.getResourceByKey(key).test()
+
+        val resource = resources.first().toModel()
+
+        testSubscriber.awaitCount(1)
+        testSubscriber.assertResult(resource)
+        testSubscriber.dispose()
+    }
+
     override fun tearDownChild() {
         database.clearAllTables()
     }

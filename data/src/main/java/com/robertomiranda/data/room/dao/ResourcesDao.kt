@@ -17,6 +17,6 @@ interface ResourcesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAll(resources: List<ResourceRoom>): Maybe<List<Long>>
 
-    @Query("SELECT * FROM resources WHERE resourceKey LIKE :email")
-    fun getResourceFromEmail(email: String): Maybe<ResourceRoom>
+    @Query("SELECT * FROM resources WHERE resourceKey LIKE :key")
+    fun getResourceByKey(key: String): Maybe<ResourceRoom>
 }

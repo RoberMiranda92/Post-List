@@ -23,7 +23,7 @@ class PostDetailProvider(private val localRepository: ILocalRepository) {
     }
 
     fun getResourceFromEmail(email: String): Maybe<Resource> {
-        return localRepository.getResourceFromEmail(email.substring(email.indexOfFirst { it == '.' }))
+        return localRepository.getResourceByKey(email.substring(email.indexOfFirst { it == '.' }))
     }
 
     private fun getPostWithUser(
