@@ -15,12 +15,6 @@
         <item name="colorOnError">@color/colorOnError</item>
     </style>
 
-    <style name="MainButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="backgroundColor">?attr/colorPrimary</item>
-        <item name="android:minHeight">@dimen/recomended_tappeable_size</item>
-    </style>
-
     <style name="Title" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textAppearance">?attr/textAppearanceHeadline6</item>
@@ -62,6 +56,11 @@
 
     <style name="CustomMaterialBodyStyle" parent="@style/MaterialAlertDialog.MaterialComponents.Body.Text">
         <item name="android:textAppearance">@style/Subtitle</item>
+    </style>
+
+    <style name="Line">
+        <item name="android:alpha">@dimen/material_emphasis_disabled</item>
+        <item name="android:background">?attr/colorOnSurface</item>
     </style>
 
 </resources>

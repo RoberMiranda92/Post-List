@@ -10,22 +10,33 @@
         android:paddingEnd="@dimen/activity_horizontal_margin">
 
         <com.robertomiranda.app.components.UserRowView
-            android:layout_width="match_parent"
             android:id="@+id/userrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/line"
+            style="@style/Line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userrow" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/title"
             style="@style/Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userrow" />
+            app:layout_constraintTop_toBottomOf="@id/line" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/body"
