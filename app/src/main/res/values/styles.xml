@@ -26,7 +26,7 @@
     <style name="Title.Bold">
         <item name="android:textStyle">bold</item>
     </style>
-    
+
     <style name="Subtitle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
         <item name="android:textColor">?android:attr/textColorSecondary</item>

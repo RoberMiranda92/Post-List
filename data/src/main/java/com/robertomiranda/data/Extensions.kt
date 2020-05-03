@@ -3,12 +3,15 @@ package com.robertomiranda.data
 import android.net.Uri
 import com.robertomiranda.data.api.models.CommentApi
 import com.robertomiranda.data.api.models.PostApi
+import com.robertomiranda.data.api.models.ResourceApi
 import com.robertomiranda.data.api.models.UserApi
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.Resource
 import com.robertomiranda.data.models.User
 import com.robertomiranda.data.room.models.CommentRoom
 import com.robertomiranda.data.room.models.PostRoom
+import com.robertomiranda.data.room.models.ResourceRoom
 import com.robertomiranda.data.room.models.UserRoom
 
 fun PostApi.toModel(): Post {
@@ -57,4 +60,16 @@ fun User?.getAvatarUrl(): String {
             .appendQueryParameter("name", username)
         builder.build().toString()
     } ?: ""
+}
+
+fun ResourceApi.toModel(): Resource {
+    return Resource(key, value)
+}
+
+fun ResourceRoom.toModel(): Resource {
+    return Resource(key, value)
+}
+
+fun Resource.toEntity(): ResourceRoom {
+    return ResourceRoom(key, value)
 }

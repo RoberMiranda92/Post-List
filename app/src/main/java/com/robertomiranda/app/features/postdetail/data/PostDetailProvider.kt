@@ -2,12 +2,13 @@ package com.robertomiranda.app.features.postdetail.data
 
 import android.content.Context
 import com.robertomiranda.app.features.postdetail.data.model.PostDetail
-import com.robertomiranda.data.LocalRepository
+import com.robertomiranda.data.repository.local.LocalRepository
 import com.robertomiranda.data.models.Comment
+import com.robertomiranda.data.repository.local.ILocalRepository
 import io.reactivex.Flowable
 import io.reactivex.functions.BiFunction
 
-class PostDetailProvider(private val localRepository: LocalRepository) {
+class PostDetailProvider(private val localRepository: ILocalRepository) {
 
     fun getPostDetail(postId: Int): Flowable<PostDetail> {
         val builder: PostDetail.PostDetailBuilder = PostDetail.PostDetailBuilder()

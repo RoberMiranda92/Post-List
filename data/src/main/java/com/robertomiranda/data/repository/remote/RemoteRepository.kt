@@ -1,37 +1,32 @@
-package com.robertomiranda.data
+package com.robertomiranda.data.repository.remote
 
-import androidx.paging.PagedList
-import com.robertomiranda.data.api.ApiComments
-import com.robertomiranda.data.api.ApiPost
-import com.robertomiranda.data.api.ApiUsers
-import com.robertomiranda.data.api.ServiceFactory
+import com.robertomiranda.data.api.*
+import com.robertomiranda.data.api.models.ResourceApi
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.Resource
 import com.robertomiranda.data.models.User
+import com.robertomiranda.data.toModel
 import io.reactivex.Flowable
-import io.reactivex.Maybe
 import io.reactivex.Single
 
 class RemoteRepository(
     private val apiPost: ApiPost,
     private val apiUsers: ApiUsers,
-    private val apiComments: ApiComments
-) : IRepository {
+    private val apiComments: ApiComments,
+    private val apiResource: ApiResources
+) : IRemoteRepository {
 
     override fun getAllPost(): Flowable<List<Post>> {
         return apiPost.getAllPost()
             .map { postList -> postList.map { it.toModel() } }
     }
 
-    override fun getAllPostPaginated(): Flowable<PagedList<Post>> {
-        TODO("Not yet implemented")
-    }
-
     override fun getPostById(id: Int): Single<Post> {
         return apiPost.getPostById(id).map { it.toModel() }
     }
 
-    fun getAllComments(): Flowable<List<Comment>> {
+    override fun getAllComments(): Flowable<List<Comment>> {
         return apiComments.getAllComments().map { commentList -> commentList.map { it.toModel() } }
     }
 
@@ -43,8 +38,14 @@ class RemoteRepository(
         return apiUsers.getUserById(id).map { it.toModel() }
     }
 
-    fun geAllUsers(): Flowable<List<User>> {
+    override fun geAllUsers(): Flowable<List<User>> {
         return apiUsers.getAllUsers().map { list -> list.map { it.toModel() } }
+    }
+
+    override fun getAllResources(): Flowable<List<Resource>> {
+        return apiResource.getResources()
+            .onErrorReturn { RESOURCE_LIST_DEFAULT }
+            .map { list -> list.map { it.toModel() } }
     }
 
     companion object {
@@ -52,8 +53,14 @@ class RemoteRepository(
             return RemoteRepository(
                 ServiceFactory.create<ApiPost>(),
                 ServiceFactory.create<ApiUsers>(),
-                ServiceFactory.create<ApiComments>()
+                ServiceFactory.create<ApiComments>(),
+                ServiceFactory.create<ApiResources>()
             )
         }
+
+        val RESOURCE_LIST_DEFAULT = listOf<ResourceApi>(
+            ResourceApi(".info", "ℹ️"),
+            ResourceApi(".co.uk", "\uD83C\uDDEC\uD83C\uDDE7")
+        )
     }
 }

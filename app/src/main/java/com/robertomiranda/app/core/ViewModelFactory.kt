@@ -10,7 +10,6 @@ import com.robertomiranda.app.features.postlist.PostListViewModel
 import com.robertomiranda.app.features.postlist.data.PostListProvider
 import com.robertomiranda.app.features.welcome.WelcomeViewModel
 import com.robertomiranda.app.features.welcome.data.WelcomeDataProvider
-import com.robertomiranda.data.LocalRepository
 
 class ViewModelFactory private constructor(private val context: Context) :
     ViewModelProvider.NewInstanceFactory() {

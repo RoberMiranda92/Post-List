@@ -1,11 +1,14 @@
 package com.robertomiranda.data
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.robertomiranda.data.repository.local.LocalRepository
 import com.robertomiranda.data.room.dao.CommentsDao
 import com.robertomiranda.data.room.dao.PostsDao
+import com.robertomiranda.data.room.dao.ResourcesDao
 import com.robertomiranda.data.room.dao.UsersDao
 import com.robertomiranda.data.room.models.CommentRoom
 import com.robertomiranda.data.room.models.PostRoom
+import com.robertomiranda.data.room.models.ResourceRoom
 import com.robertomiranda.data.room.models.UserRoom
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,17 +19,26 @@ class LocalRepositoryTest : BaseDataBaseTest() {
     private lateinit var postDao: PostsDao
     private lateinit var commentsDao: CommentsDao
     private lateinit var usersDao: UsersDao
+    private lateinit var resoucesDao: ResourcesDao
     private lateinit var localRepository: LocalRepository
     private lateinit var postList: List<PostRoom>
     private lateinit var commentList: List<CommentRoom>
     private lateinit var users: List<UserRoom>
+    private lateinit var resources: List<ResourceRoom>
 
     override fun setUpChild() {
         postDao = database.postDao()
         commentsDao = database.commentsDao()
         usersDao = database.usersDao()
+        resoucesDao = database.resourcesDao()
 
-        localRepository = LocalRepository(postDao, usersDao, commentsDao)
+        localRepository =
+            LocalRepository(
+                postDao,
+                usersDao,
+                commentsDao,
+                resoucesDao
+            )
 
         insertDataBaseData()
     }
@@ -62,9 +74,15 @@ class LocalRepositoryTest : BaseDataBaseTest() {
             )
         }
 
+        resources = listOf<ResourceRoom>(
+            ResourceRoom(".info", "ℹ️"),
+            ResourceRoom(".co.uk", "\uD83C\uDDEC\uD83C\uDDE7")
+        )
+
         usersDao.addAll(users).test().await()
         postDao.addPostList(postList).test().await()
         commentsDao.addCommentsList(commentList).test().await()
+        resoucesDao.addAll(resources).test().await()
     }
 
     @Test
@@ -95,7 +113,6 @@ class LocalRepositoryTest : BaseDataBaseTest() {
         testSubscriber.dispose()
     }
 
-
     @Test
     fun getUserFromPostOK() {
         val testSubscriber = localRepository.getUserById(1).test()
@@ -104,6 +121,19 @@ class LocalRepositoryTest : BaseDataBaseTest() {
 
         testSubscriber.awaitCount(1)
         testSubscriber.assertResult(user)
+        testSubscriber.dispose()
+    }
+
+    @Test
+    fun getAllResources() {
+        val testSubscriber = localRepository.getAllResources().test()
+
+        val resources = resources.map { it.toModel() }
+
+        testSubscriber.awaitCount(1)
+        testSubscriber.assertValue { list -> list == resources }
+            .assertNoErrors()
+            .assertNotComplete()
         testSubscriber.dispose()
     }
 

@@ -2,7 +2,7 @@ package com.robertomiranda.app.features.postlist.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.robertomiranda.app.utils.asPagedList
-import com.robertomiranda.data.LocalRepository
+import com.robertomiranda.data.repository.local.LocalRepository
 import com.robertomiranda.data.models.Post
 import io.mockk.confirmVerified
 import io.mockk.every

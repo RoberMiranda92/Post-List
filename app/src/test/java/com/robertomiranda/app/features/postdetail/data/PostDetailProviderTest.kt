@@ -1,7 +1,7 @@
 package com.robertomiranda.app.features.postdetail.data
 
 import com.robertomiranda.app.features.postdetail.data.model.PostDetail
-import com.robertomiranda.data.LocalRepository
+import com.robertomiranda.data.repository.local.LocalRepository
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
 import com.robertomiranda.data.models.User
