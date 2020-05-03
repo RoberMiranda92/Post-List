@@ -8,7 +8,6 @@ import com.robertomiranda.app.core.PostListScreenState
 import com.robertomiranda.app.core.ScreenState
 import com.robertomiranda.app.features.postlist.data.PostListProvider
 import com.robertomiranda.app.utils.asPagedList
-import com.robertomiranda.data.LocalRepository
 import com.robertomiranda.data.models.Post
 import io.mockk.confirmVerified
 import io.mockk.every

@@ -2,10 +2,15 @@ package com.robertomiranda.app.features.postdetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.robertomiranda.app.core.*
+import com.robertomiranda.app.core.list.ListItem
+import com.robertomiranda.app.features.postdetail.adapter.models.CommentBundle
+import com.robertomiranda.app.features.postdetail.data.model.PostDetail
 import com.robertomiranda.app.features.postdetail.data.PostDetailProvider
 import com.robertomiranda.data.models.Comment
-import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.Resource
+import io.reactivex.Maybe
 
 class PostDetailViewModel(
     private val provider: PostDetailProvider
@@ -14,13 +19,13 @@ class PostDetailViewModel(
     override fun initState(): PostDetailScreenState = PostDetailScreenState.INITIAL
 
     //Data
-    private val _postData: MutableLiveData<Post> = MutableLiveData()
-    val postData: LiveData<Post>
+    private val _postData: MutableLiveData<PostDetail> = MutableLiveData()
+    val postData: LiveData<PostDetail>
         get() = _postData
 
     private val _postCommentsData: MutableLiveData<List<Comment>> = MutableLiveData()
-    val postCommentsData: LiveData<List<Comment>>
-        get() = _postCommentsData
+    val postCommentsData: LiveData<MutableList<ListItem>>
+        get() = _postCommentsData.map { CommentBundle(it) }.map { it.all }
 
     //Error
     private val _commentError: MutableLiveData<Event<Boolean>> = MutableLiveData()
@@ -28,24 +33,27 @@ class PostDetailViewModel(
         get() = _commentError
 
     fun loadPostDetails(postId: Int) {
-
         provider.getPostDetail(postId)
             .subscribeOnNewObserveOnMain()
             .doOnSubscribe { moveToLoading() }
             .subscribe(
-                { values -> managePostDetail(values.first, values.second) },
+                { detail -> managePostDetail(detail) },
                 { error -> moveToError() }
             ).addToDisposables(disposables)
     }
 
-    private fun managePostDetail(post: Post, comments: List<Comment>) {
-        _postData.setValue(post)
-        if (PostDetailProvider.ERROR_LIST == comments) {
+    fun loadCommentResource(email: String): Maybe<Resource> {
+       return  provider.getResourceFromEmail(email)
+            .subscribeOnNewObserveOnMain()
+    }
+
+    private fun managePostDetail(detail: PostDetail) {
+        _postData.setValue(detail)
+        if (PostDetailProvider.ERROR_LIST == detail.comments) {
             _commentError.setValue(Event(true))
         } else {
-            _postCommentsData.setValue(comments)
+            _postCommentsData.setValue(detail.comments)
         }
-
         moveToDataLoaded()
     }
 

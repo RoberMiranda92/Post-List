@@ -4,14 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.robertomiranda.data.models.Resource
 import com.robertomiranda.data.room.dao.CommentsDao
 import com.robertomiranda.data.room.dao.PostsDao
+import com.robertomiranda.data.room.dao.ResourcesDao
 import com.robertomiranda.data.room.dao.UsersDao
 import com.robertomiranda.data.room.models.*
 
 @Database(
     entities = [AddressRoom::class, CommentRoom::class, CompanyRoom::class, GeoRoom::class,
-        PostRoom::class, UserRoom::class], version = 1
+        PostRoom::class, UserRoom::class, ResourceRoom::class], version = 1
 )
 abstract class PostListDataBase : RoomDatabase() {
 
@@ -20,6 +22,8 @@ abstract class PostListDataBase : RoomDatabase() {
     abstract fun commentsDao(): CommentsDao
 
     abstract fun usersDao(): UsersDao
+
+    abstract fun resourcesDao(): ResourcesDao
 
     companion object {
 

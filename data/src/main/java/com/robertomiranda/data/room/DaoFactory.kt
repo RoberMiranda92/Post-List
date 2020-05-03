@@ -10,5 +10,7 @@ class DaoFactory {
         fun commentsDao(context: Context) = PostListDataBase.getInstance(context).commentsDao()
 
         fun usersDao(context: Context) = PostListDataBase.getInstance(context).usersDao()
+
+        fun resourcesDao(context: Context) = PostListDataBase.getInstance(context).resourcesDao()
     }
 }

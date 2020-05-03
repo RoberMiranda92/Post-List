@@ -8,7 +8,6 @@ import com.robertomiranda.app.core.PostListScreenState
 import com.robertomiranda.app.core.addToDisposables
 import com.robertomiranda.app.core.subscribeOnNewObserveOnMain
 import com.robertomiranda.app.features.postlist.data.PostListProvider
-import com.robertomiranda.data.LocalRepository
 import com.robertomiranda.data.models.Post
 
 class PostListViewModel(

@@ -4,13 +4,17 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.robertomiranda.data.api.ApiComments
 import com.robertomiranda.data.api.ApiPost
+import com.robertomiranda.data.api.ApiResources
 import com.robertomiranda.data.api.ApiUsers
 import com.robertomiranda.data.api.models.CommentApi
 import com.robertomiranda.data.api.models.PostApi
+import com.robertomiranda.data.api.models.ResourceApi
 import com.robertomiranda.data.api.models.UserApi
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.Resource
 import com.robertomiranda.data.models.User
+import com.robertomiranda.data.repository.remote.RemoteRepository
 import io.reactivex.observers.TestObserver
 import io.reactivex.subscribers.TestSubscriber
 import org.junit.Test
@@ -21,13 +25,15 @@ class RemoteRepositoryTest : BaseTest() {
     private lateinit var apiPost: ApiPost
     private lateinit var apiComments: ApiComments
     private lateinit var apiUsers: ApiUsers
+    private lateinit var apiResources: ApiResources
 
     override fun setUpChild() {
         apiPost = createApiService<ApiPost>()
         apiComments = createApiService<ApiComments>()
         apiUsers = createApiService<ApiUsers>()
+        apiResources = createApiService<ApiResources>()
 
-        remoteRepository = RemoteRepository(apiPost, apiUsers, apiComments)
+        remoteRepository = RemoteRepository(apiPost, apiUsers, apiComments, apiResources)
     }
 
     @Test
@@ -129,10 +135,51 @@ class RemoteRepositoryTest : BaseTest() {
         testObserver.dispose()
     }
 
+    @Test
+    fun getAllResourcesFromApiOKreturnsDefault() {
+        val response =
+            MockWebServerResponseBuilder().httpCode500()
+                .build()
+        val userList = RemoteRepository.RESOURCE_LIST_DEFAULT.map { it.toModel() }
+
+        server.enqueue(response)
+
+        val testObserver: TestSubscriber<List<Resource>> = remoteRepository.getAllResources()
+            .test()
+
+        testObserver.awaitCount(1)
+        testObserver.assertResult(userList)
+        testObserver.dispose()
+    }
+
+    @Test
+    fun getAllResourcesFromApiKO() {
+        val userListType = object : TypeToken<List<ResourceApi>>() {}.type
+        val response =
+            MockWebServerResponseBuilder().httpCode200().bodyFromFile(GET_ALL_RESOURCES_OK)
+                .build()
+        val userList =
+            Gson().fromJson<List<ResourceApi>>(
+                Utils.getStringFromFile(GET_ALL_RESOURCES_OK),
+                userListType
+            )
+                .map { it.toModel() }
+
+        server.enqueue(response)
+
+        val testObserver: TestSubscriber<List<Resource>> = remoteRepository.getAllResources()
+            .test()
+
+        testObserver.awaitCount(1)
+        testObserver.assertResult(userList)
+        testObserver.dispose()
+    }
+
     companion object {
         const val GET_ALL_POST_OK = "get_all_post_ok.json"
         const val GET_POST_BY_ID_OK = "get_post_ok.json"
         const val GET_ALL_COMMENTS_OK = "get_all_comments_ok.json"
         const val GET_ALL_USERS_OK = "get_all_users_ok.json"
+        const val GET_ALL_RESOURCES_OK = "get_all_resources_ok.json"
     }
 }

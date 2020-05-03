@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Post List</string>
-    <string name="title_activity_main">MainActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- Welcome Screen -->
+    <string name="welcome_error_title">Oops!</string>
+    <string name="welcome_error_subtitle">We couldn\'t download the posts… \n Do you want to continue?</string>
+
+    <!-- Post List Screen -->
+    <string name="post_list_title">Post List </string>
+    <string name="post_list_error_title">Oops!</string>
+    <string name="post_list_error_subtitle">Looks like someone unplugged a wire</string>
+    <string name="post_list_empty_title">No post yet</string>
+    <string name="post_list_empty_subtitle">Let the users creates some post and check it later!</string>
+
+    <!-- Post Detail Screen -->
+    <string name="post_detail_title">Post Detail</string>
+    <string name="post_detail_error_title">Oops!</string>
+    <string name="post_detail_error_subtitle">Looks like someone unplugged a wire</string>
+    <string name="post_detail_tab_details">Details</string>
+    <string name="post_detail_tab_comments">Comments</string>
+    <plurals name="post_detail_comment_total">
+        <item quantity="one">%d comment</item>
+        <item quantity="other">%d comments</item>
+    </plurals>
+    <string name="post_detail_comments_error_title">Oops!</string>
+    <string name="post_detail_comments_error_subtitle">We couldn\'t download the comments… </string>
+
 </resources>

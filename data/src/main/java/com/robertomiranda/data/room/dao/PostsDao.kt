@@ -9,6 +9,7 @@ import com.robertomiranda.data.room.models.PostRoom
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 @Dao
 interface PostsDao {
@@ -23,5 +24,5 @@ interface PostsDao {
     fun addPostList(posts: List<PostRoom>): Maybe<List<Long>>
 
     @Query("SELECT * FROM posts WHERE id = :id")
-    fun getPostById(id: Int): Maybe<PostRoom>
+    fun getPostById(id: Int): Single<PostRoom>
 }

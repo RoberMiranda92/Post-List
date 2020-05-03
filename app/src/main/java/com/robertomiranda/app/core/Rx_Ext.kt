@@ -101,7 +101,10 @@ fun <T> Maybe<T>.subscribeAndIgnore(): Disposable? {
     )
 }
 
-fun  Completable.subscribeOnNewObserveOnMain(): Completable =
+fun Completable.subscribeOnNewObserveOnMain(): Completable =
+    this.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+
+fun <T> Maybe<T>.subscribeOnNewObserveOnMain(): Maybe<T> =
     this.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
 
 fun Disposable.addToDisposables(disposables: CompositeDisposable?) = disposables?.add(this)

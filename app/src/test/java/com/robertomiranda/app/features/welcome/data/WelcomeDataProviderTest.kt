@@ -1,10 +1,12 @@
 package com.robertomiranda.app.features.welcome.data
 
-import com.robertomiranda.data.LocalRepository
-import com.robertomiranda.data.RemoteRepository
+import com.robertomiranda.data.repository.local.LocalRepository
+import com.robertomiranda.data.repository.remote.RemoteRepository
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.Resource
 import com.robertomiranda.data.models.User
+import com.robertomiranda.data.room.models.ResourceRoom
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -30,14 +32,17 @@ class WelcomeDataProviderTest {
         val postsList: List<Post> = listOf(POST)
         val commentsList: List<Comment> = listOf(COMMENT)
         val userList: List<User> = listOf(USER)
+        val resources:List<Resource> = RESOUCES
 
         every { remoteRepository.getAllPost() } returns Flowable.just(postsList)
         every { remoteRepository.getAllComments() } returns Flowable.just(commentsList)
         every { remoteRepository.geAllUsers() } returns Flowable.just(userList)
+        every { remoteRepository.getAllResources() } returns Flowable.just(resources)
 
         every { localRepository.addAllPost(any()) } returns Maybe.just(emptyList())
         every { localRepository.addAllComments(any()) } returns Maybe.just(emptyList())
         every { localRepository.addAllUsers(any()) } returns Maybe.just(emptyList())
+        every { localRepository.addAllResources(any()) } returns Maybe.just(emptyList())
 
         val testObserver = welcomeDataProvider.getAndCacheAllData().test()
 
@@ -49,9 +54,11 @@ class WelcomeDataProviderTest {
         verify(exactly = 1) { remoteRepository.getAllPost() }
         verify(exactly = 1) { remoteRepository.getAllComments() }
         verify(exactly = 1) { remoteRepository.geAllUsers() }
+        verify(exactly = 1) { remoteRepository.getAllResources() }
         verify(exactly = 1) { localRepository.addAllPost(postsList) }
         verify(exactly = 1) { localRepository.addAllComments(commentsList) }
         verify(exactly = 1) { localRepository.addAllUsers(userList) }
+        verify(exactly = 1) { localRepository.addAllResources(resources) }
 
         confirmVerified(remoteRepository)
         confirmVerified(localRepository)
@@ -227,6 +234,11 @@ class WelcomeDataProviderTest {
             1,
             "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et",
             "Jayne_Kuhic@sydney.com"
+        )
+
+        val RESOUCES: List<Resource> = listOf<Resource>(
+            Resource(".info", "ℹ️"),
+            Resource(".co.uk", "\uD83C\uDDEC\uD83C\uDDE7")
         )
     }
 }
