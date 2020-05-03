@@ -25,6 +25,10 @@ abstract class BaseListAdapter<T : ListItem>(callback: DiffUtil.ItemCallback<T>)
         }
     }
 
+    override fun onViewRecycled(holder: BaseViewHolder<T>) {
+        holder.onUnbind()
+    }
+
     override fun getItemViewType(position: Int): Int {
         return this.currentList[position].getType()
     }

@@ -2,17 +2,16 @@ package com.robertomiranda.app.features.postdetail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.robertomiranda.app.core.list.BaseListAdapter
 import com.robertomiranda.app.core.list.BaseViewHolder
 import com.robertomiranda.app.core.list.ListItem
 import com.robertomiranda.app.databinding.RowCommentBinding
 import com.robertomiranda.app.databinding.RowCommentCountBinding
+import com.robertomiranda.app.features.postdetail.PostDetailViewModel
 import com.robertomiranda.app.features.postdetail.adapter.models.CommentBundle
 
-class PostCommentListAdapter : BaseListAdapter<ListItem>(
+class PostCommentListAdapter(val viewModel: PostDetailViewModel) : BaseListAdapter<ListItem>(
     DIFF_CALLBACK
 ) {
     override fun getViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ListItem> {
@@ -32,7 +31,7 @@ class PostCommentListAdapter : BaseListAdapter<ListItem>(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
-                    )
+                    ), viewModel
                 )
             }
             else -> error("Invalid view type")

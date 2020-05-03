@@ -5,7 +5,9 @@ import com.robertomiranda.app.core.list.BaseViewHolder
 import com.robertomiranda.app.databinding.RowCommentCountBinding
 import com.robertomiranda.app.features.postdetail.adapter.models.CommentHeaderItem
 
-class PostCommentHeaderHolder(var binding: RowCommentCountBinding) :
+class PostCommentHeaderHolder(
+    val binding: RowCommentCountBinding
+) :
     BaseViewHolder<CommentHeaderItem>(binding.root) {
 
     override fun bind(item: CommentHeaderItem) {
@@ -16,5 +18,9 @@ class PostCommentHeaderHolder(var binding: RowCommentCountBinding) :
                 item.size
             )
         }
+    }
+
+    override fun onUnbind() {
+
     }
 }

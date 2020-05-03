@@ -2,10 +2,13 @@ package com.robertomiranda.data.room.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "resources")
 data class ResourceRoom(
-    @ColumnInfo(name = "key")
+
+    @PrimaryKey
+    @ColumnInfo(name = "resourceKey")
     val key: String,
 
     @ColumnInfo(name = "value")

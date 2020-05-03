@@ -32,6 +32,7 @@ versions.espresso_version = "3.1.0"
 versions.paggination_version = "2.1.2"
 versions.jacoco_version= "0.1.4"
 versions.glide_version = "4.11.0"
+versions.emoji_version = "1.0.0"
 
 ext.versions = versions
 

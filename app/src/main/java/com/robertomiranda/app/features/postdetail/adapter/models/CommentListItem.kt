@@ -7,9 +7,8 @@ data class CommentListItem(val comment: Comment) : ListItem {
 
     override fun getType(): Int = CommentBundle.VIEW_TYPE_COMMENT
 
-    override fun getID(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getID(): Int =
+        comment.id
 
     override fun equals(other: Any?): Boolean {
         return if (other is CommentListItem) {

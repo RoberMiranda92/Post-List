@@ -91,12 +91,16 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$versions.fragment_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$versions.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_version"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swipe_refresh_layout"
     implementation "androidx.paging:paging-runtime-ktx:$versions.paggination_version"
-
+    implementation "androidx.emoji:emoji:$versions.emoji_version"
+    implementation"androidx.emoji:emoji-appcompat:$versions.emoji_version"
+    implementation "androidx.emoji:emoji-bundled:$versions.emoji_version"
+    
     // Material components : https://material.io/develop/android/
     implementation "com.google.android.material:material:$versions.material_components_version"
     // Navigation : https://developer.android.com/jetpack/androidx/releases/navigation

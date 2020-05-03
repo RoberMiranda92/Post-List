@@ -20,4 +20,6 @@ interface ILocalRepository : IRepository {
     fun addAllUsers(userList: List<User>): Maybe<List<Long>>
 
     fun addAllResources(resourceList:List<Resource>): Maybe<List<Long>>
+
+    fun getResourceFromEmail(email:String): Maybe<Resource>
 }

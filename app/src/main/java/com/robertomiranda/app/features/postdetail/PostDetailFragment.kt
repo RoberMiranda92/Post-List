@@ -26,7 +26,7 @@ class PostDetailFragment : Fragment() {
         ViewModelFactory.getInstance(requireContext())
     }
     private val args: PostDetailFragmentArgs by navArgs()
-    private val adapter: PostCommentListAdapter by lazy { PostCommentListAdapter() }
+    private val adapter: PostCommentListAdapter by lazy { PostCommentListAdapter(viewModel) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

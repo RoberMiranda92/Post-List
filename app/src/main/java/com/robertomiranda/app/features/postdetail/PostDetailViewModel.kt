@@ -1,18 +1,16 @@
 package com.robertomiranda.app.features.postdetail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.robertomiranda.app.core.*
 import com.robertomiranda.app.core.list.ListItem
 import com.robertomiranda.app.features.postdetail.adapter.models.CommentBundle
-import com.robertomiranda.app.features.postdetail.adapter.models.CommentListItem
 import com.robertomiranda.app.features.postdetail.data.model.PostDetail
 import com.robertomiranda.app.features.postdetail.data.PostDetailProvider
-import com.robertomiranda.data.getAvatarUrl
 import com.robertomiranda.data.models.Comment
-import com.robertomiranda.data.models.Post
+import com.robertomiranda.data.models.Resource
+import io.reactivex.Maybe
 
 class PostDetailViewModel(
     private val provider: PostDetailProvider
@@ -42,6 +40,11 @@ class PostDetailViewModel(
                 { detail -> managePostDetail(detail) },
                 { error -> moveToError() }
             ).addToDisposables(disposables)
+    }
+
+    fun loadCommentResource(email: String): Maybe<Resource> {
+       return  provider.getResourceFromEmail(email)
+            .subscribeOnNewObserveOnMain()
     }
 
     private fun managePostDetail(detail: PostDetail) {

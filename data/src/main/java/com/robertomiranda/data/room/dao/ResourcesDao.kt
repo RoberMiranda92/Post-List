@@ -1,6 +1,8 @@
 package com.robertomiranda.data.room.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.robertomiranda.data.room.models.ResourceRoom
 import io.reactivex.Flowable
@@ -12,5 +14,9 @@ interface ResourcesDao {
     @Query("SELECT * FROM resources")
     fun getAllResources(): Flowable<List<ResourceRoom>>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAll(resources: List<ResourceRoom>): Maybe<List<Long>>
+
+    @Query("SELECT * FROM resources WHERE resourceKey LIKE :email")
+    fun getResourceFromEmail(email: String): Maybe<ResourceRoom>
 }

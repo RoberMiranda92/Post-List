@@ -70,6 +70,10 @@ class LocalRepository constructor(
         return resourceDao.addAll(resourceList.map { it.toEntity() })
     }
 
+    override fun getResourceFromEmail(email: String): Maybe<Resource> {
+        return resourceDao.getResourceFromEmail(email).map { it.toModel() }
+    }
+
     companion object {
         const val PAGINATION_SIZE = 5
 
