@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import com.robertomiranda.app.R
 import com.robertomiranda.app.core.PostDetailScreenState
 import com.robertomiranda.app.core.ViewModelFactory
+import com.robertomiranda.app.core.showOkDialog
 import com.robertomiranda.app.core.ui.hide
 import com.robertomiranda.app.core.ui.show
 import com.robertomiranda.app.databinding.FragmentPostDetailBinding
@@ -108,6 +109,13 @@ class PostDetailFragment : Fragment() {
         viewModel.postData.observe(viewLifecycleOwner, Observer { postDetail ->
             binding.detail.post = postDetail.post
             binding.detail.user = postDetail.user
+        })
+
+        viewModel.commentError.observe(viewLifecycleOwner, Observer { error ->
+            context?.showOkDialog(
+                R.string.post_detail_comments_error_title,
+                R.string.post_detail_comments_error_subtitle
+            )
         })
     }
 

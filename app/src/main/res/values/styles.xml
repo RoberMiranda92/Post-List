@@ -17,6 +17,7 @@
 
     <style name="Title" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/text_size_h5</item>
         <item name="android:textAppearance">?attr/textAppearanceHeadline6</item>
         <item name="android:textAlignment">center</item>
         <item name="android:letterSpacing">0.02</item>
@@ -25,7 +26,7 @@
     <style name="Title.Bold">
         <item name="android:textStyle">bold</item>
     </style>
-
+    
     <style name="Subtitle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
         <item name="android:textColor">?android:attr/textColorSecondary</item>
