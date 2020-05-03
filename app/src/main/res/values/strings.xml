@@ -23,7 +23,6 @@
         <item quantity="one">%d comment</item>
         <item quantity="other">%d comments</item>
     </plurals>
-
     <string name="post_detail_comments_error_title">Oops!</string>
     <string name="post_detail_comments_error_subtitle">We couldn\'t download the comments… </string>
 

@@ -100,7 +100,7 @@ dependencies {
     implementation "androidx.emoji:emoji:$versions.emoji_version"
     implementation"androidx.emoji:emoji-appcompat:$versions.emoji_version"
     implementation "androidx.emoji:emoji-bundled:$versions.emoji_version"
-    
+
     // Material components : https://material.io/develop/android/
     implementation "com.google.android.material:material:$versions.material_components_version"
     // Navigation : https://developer.android.com/jetpack/androidx/releases/navigation
