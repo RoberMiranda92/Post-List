@@ -15,8 +15,8 @@ class PostListProvider(private val localRepository: ILocalRepository) {
 
     companion object {
 
-        fun newInstance(context: Context): PostListProvider {
-            return PostListProvider(LocalRepository.newInstance(context))
+        fun newInstance(context: Context, localRepository: ILocalRepository = LocalRepository.newInstance(context)): PostListProvider {
+            return PostListProvider(localRepository)
         }
     }
 }

@@ -45,8 +45,8 @@ class PostDetailProvider(private val localRepository: ILocalRepository) {
         private val INVALID_COMMENT_ERROR: Comment = Comment("", -1, -1, "", "")
         val ERROR_LIST = listOf<Comment>(INVALID_COMMENT_ERROR)
 
-        fun newInstance(context: Context): PostDetailProvider {
-            return PostDetailProvider(LocalRepository.newInstance(context))
+        fun newInstance(context: Context, localRepository: ILocalRepository = LocalRepository.newInstance(context)): PostDetailProvider {
+            return PostDetailProvider(localRepository)
         }
     }
 }
