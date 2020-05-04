@@ -2,60 +2,54 @@ package com.robertomiranda.app.features.postdetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayout
 import com.robertomiranda.app.R
+import com.robertomiranda.app.core.BaseFragment
 import com.robertomiranda.app.core.PostDetailScreenState
-import com.robertomiranda.app.core.ViewModelFactory
 import com.robertomiranda.app.core.showOkDialog
 import com.robertomiranda.app.core.ui.hide
 import com.robertomiranda.app.core.ui.show
 import com.robertomiranda.app.databinding.FragmentPostDetailBinding
 import com.robertomiranda.app.features.postdetail.adapter.PostCommentListAdapter
+import com.robertomiranda.app.koin.Scopes
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PostDetailFragment : Fragment() {
+class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
 
-    private lateinit var binding: FragmentPostDetailBinding
-    private val viewModel: PostDetailViewModel by viewModels {
-        ViewModelFactory.getInstance(requireContext())
-    }
+    private val viewModel: PostDetailViewModel by viewModel()
     private val args: PostDetailFragmentArgs by navArgs()
     private val adapter: PostCommentListAdapter by lazy { PostCommentListAdapter(viewModel) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentPostDetailBinding.inflate(inflater)
+    override fun getScope(): Scopes = Scopes.POST_DETAIL_SCOPE
 
-        return with(binding) {
+    override fun getBinding(layoutInflater: LayoutInflater): FragmentPostDetailBinding {
+        return FragmentPostDetailBinding.inflate(layoutInflater)
+    }
+
+    override fun setVariablesToBinding(binding: FragmentPostDetailBinding) {
+        with(binding) {
             vm = viewModel
-            lifecycleOwner = viewLifecycleOwner
-            configureViews()
-            setUpListeners()
-            observeViewModelEvents()
-            root
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.loadPostDetails(args.postId)
+        if (savedInstanceState == null) {
+            viewModel.loadPostDetails(args.postId)
+        }
     }
 
-    private fun setUpListeners() {
+    override fun setUpListeners() {
         binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                //Do nothing
+                /* Do nothing */
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                //Do nothing
+                /* Do nothing */
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -76,17 +70,7 @@ class PostDetailFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
-    private fun showDetail() {
-        binding.detail.show()
-        binding.list.hide()
-    }
-
-    private fun showComments() {
-        binding.list.show()
-        binding.detail.hide()
-    }
-
-    private fun configureViews() {
+    override fun configureViews() {
         with(binding) {
             toolbar.title = findNavController().currentDestination?.label
             toolbar.setNavigationIcon(R.drawable.ic_arrow)
@@ -94,7 +78,7 @@ class PostDetailFragment : Fragment() {
         }
     }
 
-    private fun observeViewModelEvents() {
+    override fun observeViewModelEvents() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer { state ->
             when (state) {
                 PostDetailScreenState.ERROR -> {
@@ -117,6 +101,16 @@ class PostDetailFragment : Fragment() {
                 R.string.post_detail_comments_error_subtitle
             )
         })
+    }
+
+    private fun showDetail() {
+        binding.detail.show()
+        binding.list.hide()
+    }
+
+    private fun showComments() {
+        binding.list.show()
+        binding.detail.hide()
     }
 
     private fun configureErrorView() {

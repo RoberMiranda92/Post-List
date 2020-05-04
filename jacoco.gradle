@@ -20,7 +20,30 @@ configure(coveredProject) { prj ->
             html.enabled = true
         }
 
-        final fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+        final fileFilter = ['android/*',
+                            'com/android/*',
+                            '**/fragment/*',
+                            '**/*Application*',
+                            '**/*Activity*',
+                            '**/*Adapter*',
+                            '**/*Fragment*',
+                            '**/*ViewHolder*',
+                            '**/*View*',
+                            '**/R$*.class',
+                            '**/BuildConfig.*',
+                            '**/R.class',
+                            '**/R$*.class',
+                            '**/Manifest*.*',
+                            '**/*Test*.*',
+                            'android/**/*.*',
+                            '**/*Glide*',
+                            '**/bumptech/**',
+                            '**/AppModule*.*',
+                            '**/databinding/*',
+                            '**/*DataBind*',
+                            '**/core/ui/*',
+        ]
+
         final kotlinTree = fileTree(dir: "${prj.buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
         final javacTree = fileTree(dir: "${prj.buildDir}/intermediates/javac/debug", excludes: fileFilter)
         final mainSrc = "${prj.projectDir}/src/main/java"

@@ -17,7 +17,7 @@ class PostCommentListAdapter(val viewModel: PostDetailViewModel) : BaseListAdapt
     override fun getViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ListItem> {
         return when (viewType) {
             CommentBundle.VIEW_TYPE_HEADER -> {
-                PostCommentHeaderHolder(
+                PostCommentHeaderViewHolder(
                     RowCommentCountBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,

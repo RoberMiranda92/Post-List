@@ -26,11 +26,11 @@ class WelcomeDataProvider(
 
     companion object {
 
-        fun newInstance(context: Context): WelcomeDataProvider {
-            return WelcomeDataProvider(
-                RemoteRepository.newInstance(),
-                LocalRepository.newInstance(context)
-            )
+        fun newInstance(
+            remoteRepository: IRemoteRepository,
+            localRepository: ILocalRepository
+        ): WelcomeDataProvider {
+            return WelcomeDataProvider(remoteRepository, localRepository)
         }
     }
 }

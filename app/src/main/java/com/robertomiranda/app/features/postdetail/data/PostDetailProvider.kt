@@ -1,11 +1,9 @@
 package com.robertomiranda.app.features.postdetail.data
 
-import android.content.Context
 import com.robertomiranda.app.features.postdetail.data.model.PostDetail
 import com.robertomiranda.data.models.Comment
 import com.robertomiranda.data.models.Resource
 import com.robertomiranda.data.repository.local.ILocalRepository
-import com.robertomiranda.data.repository.local.LocalRepository
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.functions.BiFunction
@@ -45,8 +43,8 @@ class PostDetailProvider(private val localRepository: ILocalRepository) {
         private val INVALID_COMMENT_ERROR: Comment = Comment("", -1, -1, "", "")
         val ERROR_LIST = listOf<Comment>(INVALID_COMMENT_ERROR)
 
-        fun newInstance(context: Context): PostDetailProvider {
-            return PostDetailProvider(LocalRepository.newInstance(context))
+        fun newInstance(localRepository: ILocalRepository): PostDetailProvider {
+            return PostDetailProvider(localRepository)
         }
     }
 }

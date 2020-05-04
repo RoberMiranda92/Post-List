@@ -7,8 +7,8 @@ apply plugin: 'kotlin-allopen'
 
 allOpen {
     // allows mocking for classes w/o directly opening them for release builds
-    annotation 'com.robertomiranda.postlist.OpenClass'
-    annotation 'com.robertomiranda.postlist.OpenForTesting'
+    annotation 'com.robertomiranda.app.OpenClass'
+    annotation 'com.robertomiranda.app.OpenForTesting'
 }
 
 //Load Key store file for sing app
