@@ -36,8 +36,8 @@ To retrieve the rest information
 * http://jsonplaceholder.typicode.com/users
 
 ## Tech Suit
-RXJava https://github.com/ReactiveX/RxJava
-Retrofit https://github.com/square/retrofit
-Android Jet Pack https://developer.android.com/jetpack
-Koin https://github.com/InsertKoinIO/koin
-Glide https://github.com/bumptech/glide
+* RXJava https://github.com/ReactiveX/RxJava
+* Retrofit https://github.com/square/retrofit
+* Android Jet Pack https://developer.android.com/jetpack
+* Koin https://github.com/InsertKoinIO/koin
+* Glide https://github.com/bumptech/glide
