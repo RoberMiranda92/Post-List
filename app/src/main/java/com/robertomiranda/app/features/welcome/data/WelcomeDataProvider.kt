@@ -27,9 +27,8 @@ class WelcomeDataProvider(
     companion object {
 
         fun newInstance(
-            context: Context,
-            remoteRepository: IRemoteRepository = RemoteRepository.newInstance(),
-            localRepository: ILocalRepository = LocalRepository.newInstance(context)
+            remoteRepository: IRemoteRepository,
+            localRepository: ILocalRepository
         ): WelcomeDataProvider {
             return WelcomeDataProvider(remoteRepository, localRepository)
         }

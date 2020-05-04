@@ -37,17 +37,19 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.loadPostDetails(args.postId)
+        if (savedInstanceState == null) {
+            viewModel.loadPostDetails(args.postId)
+        }
     }
 
     override fun setUpListeners() {
         binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                //Do nothing
+                /* Do nothing */
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                //Do nothing
+                /* Do nothing */
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {

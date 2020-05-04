@@ -33,7 +33,9 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.loadPostList()
+        if (savedInstanceState == null) {
+            viewModel.loadPostList()
+        }
     }
 
     override fun setUpListeners() {

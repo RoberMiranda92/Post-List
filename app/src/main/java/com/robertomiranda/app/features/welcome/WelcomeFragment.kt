@@ -22,7 +22,9 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadDataFromRemote()
+        if (savedInstanceState == null) {
+            viewModel.loadDataFromRemote()
+        }
     }
 
     override fun getBinding(layoutInflater: LayoutInflater): FragmentWelcomeBinding {
@@ -30,7 +32,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>() {
     }
 
     override fun setVariablesToBinding(binding: FragmentWelcomeBinding) {
-        with(binding){
+        with(binding) {
             vm = viewModel
         }
     }

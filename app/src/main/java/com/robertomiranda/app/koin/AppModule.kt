@@ -41,11 +41,11 @@ val dataProviderModule = module {
     }
 
     scope(named(Scopes.POST_LIST_SCOPE)) {
-        scoped<PostListProvider> { PostListProvider.newInstance(get(), get()) }
+        scoped<PostListProvider> { PostListProvider.newInstance(get()) }
     }
 
     scope(named(Scopes.POST_DETAIL_SCOPE)) {
-        scoped<PostDetailProvider> { PostDetailProvider.newInstance(get(), get()) }
+        scoped<PostDetailProvider> { PostDetailProvider.newInstance(get()) }
     }
 }
 
