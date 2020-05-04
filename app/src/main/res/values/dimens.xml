@@ -31,5 +31,7 @@
     <dimen name="default_icon_dimen">24dp</dimen>
     <dimen name="icon_dimen_big">28dp</dimen>
     <dimen name="icon_dimen_x">48dp</dimen>
+
     <dimen name="default_margin">10dp</dimen>
+    <dimen name="default_margin_x">20dp</dimen>
 </resources>
