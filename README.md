@@ -32,6 +32,5 @@ A post detail will have
         or we may decide that we don't want to display emojies anymore but some other information, image, custom emojies or something else
 
 To retrieve the rest information
-
-    * http://jsonplaceholder.typicode.com/users
-    * http://jsonplaceholder.typicode.com/users
+* http://jsonplaceholder.typicode.com/users
+* http://jsonplaceholder.typicode.com/users
