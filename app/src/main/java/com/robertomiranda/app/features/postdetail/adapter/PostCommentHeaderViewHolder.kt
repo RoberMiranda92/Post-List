@@ -5,7 +5,7 @@ import com.robertomiranda.app.core.list.BaseViewHolder
 import com.robertomiranda.app.databinding.RowCommentCountBinding
 import com.robertomiranda.app.features.postdetail.adapter.models.CommentHeaderItem
 
-class PostCommentHeaderHolder(
+class PostCommentHeaderViewHolder(
     val binding: RowCommentCountBinding
 ) :
     BaseViewHolder<CommentHeaderItem>(binding.root) {
